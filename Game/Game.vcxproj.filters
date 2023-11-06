@@ -27,42 +27,42 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SceneGame.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMenu.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="eventGame.cpp">
-      <Filter>Source Files\Event</Filter>
-    </ClCompile>
-    <ClCompile Include="eventMenu.cpp">
-      <Filter>Source Files\Event</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="src\eventGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scenePause.cpp">
-      <Filter>Source Files\Scenes</Filter>
+    <ClCompile Include="src\eventMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenePause.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="key.h">
+    <ClInclude Include="include\event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes.h">
+    <ClInclude Include="include\eventGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="include\eventMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="eventGame.h">
-      <Filter>Header Files\Event</Filter>
+    <ClInclude Include="include\Game.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="eventMenu.h">
-      <Filter>Header Files\Event</Filter>
+    <ClInclude Include="include\Scenes.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="event.h">
+    <ClInclude Include="include\key.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

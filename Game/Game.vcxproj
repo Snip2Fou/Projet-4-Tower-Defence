@@ -156,13 +156,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="eventGame.cpp" />
-    <ClCompile Include="eventMenu.cpp" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SceneGame.cpp" />
-    <ClCompile Include="SceneMenu.cpp" />
-    <ClCompile Include="scenePause.cpp" />
+    <ClCompile Include="src\eventGame.cpp" />
+    <ClCompile Include="src\eventMenu.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\SceneGame.cpp" />
+    <ClCompile Include="src\SceneMenu.cpp" />
+    <ClCompile Include="src\scenePause.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameObjectLib\GameObjectLib.vcxproj">
@@ -170,12 +170,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="event.h" />
-    <ClInclude Include="eventGame.h" />
-    <ClInclude Include="eventMenu.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="key.h" />
-    <ClInclude Include="Scenes.h" />
+    <ClInclude Include="include\event.h" />
+    <ClInclude Include="include\eventGame.h" />
+    <ClInclude Include="include\eventMenu.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\key.h" />
+    <ClInclude Include="include\Scenes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
