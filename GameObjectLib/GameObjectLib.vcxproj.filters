@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\Components\Button.cpp" />
+    <ClCompile Include="src\Components\Enemy.cpp" />
+    <ClCompile Include="src\Components\ShapeRenderer.cpp" />
+    <ClCompile Include="src\Components\Player.cpp" />
+    <ClCompile Include="src\Components\SpriteRenderer.cpp" />
+    <ClCompile Include="src\EnemySpawn.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Components\Component.cpp" />
+    <ClCompile Include="src\Components\SquareCollider.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\Maths\Vector2.cpp" />
+    <ClCompile Include="src\Components\LifeBar.cpp" />
+    <ClCompile Include="src\Components\LifeBarRenderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Components\Button.h" />
+    <ClInclude Include="include\Components\Enemy.h" />
+    <ClInclude Include="include\Components\ShapeRenderer.h" />
+    <ClInclude Include="include\Components\SquareCollider.h" />
+    <ClInclude Include="include\Components\Component.h" />
+    <ClInclude Include="include\EnemySpawn.h" />
+    <ClInclude Include="include\GameObject.h" />
+    <ClInclude Include="include\Components\Player.h" />
+    <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\Maths\Vector2.h" />
+    <ClInclude Include="include\WindowConfig.h" />
+    <ClInclude Include="include\Components\LifeBar.h" />
+    <ClInclude Include="include\Components\LifeBarRenderer.h" />
+    <ClInclude Include="include\Components\ObjectName.h" />
+    <ClInclude Include="include\Components\SpriteRenderer.h" />
+    <ClInclude Include="include\Maths\Vector2.inl" />
+  </ItemGroup>
+</Project>
