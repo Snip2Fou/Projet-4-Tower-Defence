@@ -4,7 +4,7 @@
 #include "Scenes.h"
 #include "Game.h"
 #include "EnemySpawn.h"
-#include "Button.h"
+#include "TowerSpot.h"
 
 int SceneGame::LoopGame(sf::RenderWindow* window)
 {
@@ -13,7 +13,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window)
 	EventFunctionsGame eventFunction;
 
 	// Bouton Pause
-	Button buttonClass;
+	//Button buttonClass;
 	/*GameObject* buttonPause = buttonClass.createButtonObj(&scene, "Pause");
 	if (buttonPause == nullptr) {
 		return 1;
@@ -24,17 +24,21 @@ int SceneGame::LoopGame(sf::RenderWindow* window)
 	scene.SetTexture("texture_enemy", "Assets/Image/zombie.png");
 	scene.SetTexture("texture_life_bar", "Assets/Image/life_bar.png");
 
-
 	GameObject* player = scene.CreatePlayer(ObjectName::PlayerName, Maths::Vector2f(375, 5), 200);
-
 
 	sf::Clock clock;
 	auto time_for_enemy_spawn = std::chrono::high_resolution_clock::now();
 
 	sf::Texture background = scene.GetTetxure()["texture_floor"];
 
-	// Cr�er un sprite avec la texture charg�e
+	// Créer un sprite avec la texture chargée
 	sf::Sprite sprite(background);
+
+	TowerSpot spotClass;
+
+	GameObject* button1 = spotClass.createButtonObj(&scene, "1");
+	GameObject* button2 = spotClass.createButtonObj(&scene, "2");
+	GameObject* button3 = spotClass.createButtonObj(&scene, "3");
 
 	clock.restart();
 
@@ -46,10 +50,10 @@ int SceneGame::LoopGame(sf::RenderWindow* window)
 		{
 			return 0;
 		}
-		// R�cup�rer la taille de la fen�tre
+		// Récupérer la taille de la fenêtre
 		sf::Vector2u windowSize = window->getSize();
 
-		// Redimensionner le sprite pour qu'il remplisse la fen�tre
+		// Redimensionner le sprite pour qu'il remplisse la fenêtre
 		sprite.setScale((float)windowSize.x / sprite.getTexture()->getSize().x, (float)windowSize.y / sprite.getTexture()->getSize().y);
 
 		sf::Time deltaTime = clock.restart();

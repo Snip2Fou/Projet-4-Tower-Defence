@@ -1,6 +1,7 @@
 #include "eventGame.h"
 #include "button.h"
 #include "ShapeRenderer.h"
+#include "TowerSpot.h"
 
 EventFunctionsGame::EventFunctionsGame()
 {
