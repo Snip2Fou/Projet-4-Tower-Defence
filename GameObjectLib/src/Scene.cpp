@@ -50,18 +50,7 @@ GameObject* Scene::CreateEnemy(const ObjectName& name, const Maths::Vector2<floa
 	gameObject->SetPosition(position);
 
 	SpriteRenderer* spriteRenderer = gameObject->CreateComponent<SpriteRenderer>();
-	if (GetLevel() == 1)
-	{
-		spriteRenderer->SetSprite(&texture["texture_enemy"], 1, 1);
-	}
-	else if (GetLevel() == 2)
-	{
-		spriteRenderer->SetSprite(&texture["texture_enemy"], 1, 1);
-	}
-	else if (GetLevel() == 3)
-	{
-		spriteRenderer->SetSprite(&texture["texture_enemy"], 0.5f, 0.5f);
-	}
+	spriteRenderer->SetSprite(&texture["texture_enemy"], 1, 1);
 
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetWidth(spriteRenderer->GetWidth());

@@ -21,6 +21,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window)
 	/*eventFunction.buttonList.push_back(buttonPause);*/
 
 	scene.SetTexture("texture_floor", "Assets/Image/floor-1.png");
+	scene.SetTexture("texture_enemy", "Assets/Image/zombie.png");
 	scene.SetTexture("texture_life_bar", "Assets/Image/life_bar.png");
 
 

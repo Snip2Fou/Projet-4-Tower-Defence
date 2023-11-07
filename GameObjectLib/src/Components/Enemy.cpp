@@ -28,206 +28,43 @@ Enemy::~Enemy()
 }
 
 void Enemy::Move(std::vector<GameObject*>* gameObjects) {
-	Maths::Vector2f move_vector(0, 0);
-	GameObject* gameobjectplayer = nullptr;
-	GetOwner()->getComponent<SquareCollider>()->SetCanMoving("up", true);
-	GetOwner()->getComponent<SquareCollider>()->SetCanMoving("down", true);
-	GetOwner()->getComponent<SquareCollider>()->SetCanMoving("left", true);
-	GetOwner()->getComponent<SquareCollider>()->SetCanMoving("right", true);
-	for (GameObject* const& gameObject : *gameObjects) {
-		bool collision = false;
-		if (GetOwner() != gameObject && gameObject->GetName() != ObjectName::ButtonName && gameObject->GetName() != ObjectName::PlayerName) {
-			collision = GetOwner()->getComponent<SquareCollider>()->IsColliding(*GetOwner()->getComponent<SquareCollider>(), *gameObject->getComponent<SquareCollider>());
-		}
-		if (gameObject->GetName() == ObjectName::PlayerName) {
 
-			move_vector.SetXY(gameObject->GetPosition() - GetOwner()->GetPosition());
-
-			gameobjectplayer = gameObject;
-			elapsedTime = clock.getElapsedTime();
-			if (collision && elapsedTime >= attack_cooldown) {
-				gameobjectplayer->getComponent<Player>()->SetHp(gameobjectplayer->getComponent<Player>()->GetHp() - GetDamage());
-				clock.restart();
-			}
-		}
-	}
-	if (gameobjectplayer) {
-		
-		move_vector.SetXY(gameobjectplayer->GetPosition() - GetOwner()->GetPosition());
-
+	if (GetOwner()->GetPosition().GetX() < 200) {
+		// Déplacement vers la droite
+		Maths::Vector2f move_vector(1, 0);
 		move_vector = move_vector.Normalize();
-
 		move_vector *= speed / 10;
-
-		if (move_vector.GetY() < 0 && move_vector.GetX() < 0 && 
-			GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"] && GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]){
-			GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
-		}
-		else if (move_vector.GetY() < 0 && move_vector.GetX() >= 0 &&
-			GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"] && GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["right"]) {
-			GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
-		}
-		else if (move_vector.GetY() >= 0 && move_vector.GetX() < 0 &&
-			GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"] && GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-			GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
-		}
-		else if (move_vector.GetY() >= 0 && move_vector.GetX() >= 0 &&
-			GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"] && GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["right"]) {
-			GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
-		}
-		else {
-			double x = std::abs(move_vector.GetX());
-			double y = std::abs(move_vector.GetY());
-			if (move_vector.GetY() < 0 && move_vector.GetX() < 0) {
-				if (!GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"] && !GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-					if (x >= y) {
-						if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["right"]) {
-							move_vector.SetXY(1, 0);
-						}
-						else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"]) {
-							move_vector.SetXY(0, 1);
-						}
-						else {
-							move_vector.SetXY(0, 0);
-						}
-					}
-					else {
-						if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"]) {
-							move_vector.SetXY(0, 1);
-						}
-						else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["right"]) {
-							move_vector.SetXY(1, 0);
-						}
-						else {
-							move_vector.SetXY(0, 0);
-						}
-					}
-				}
-				else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"]) {
-					move_vector.SetXY(0, -1);
-				}
-				else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-					move_vector.SetXY(-1, 0);
-				}
-				else {
-					move_vector.SetXY(0, 0);
-				}
-			}else if (move_vector.GetY() < 0 && move_vector.GetX() >= 0) {
-				if (!GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"] && !GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["right"]) {
-					if (x >= y) {
-						if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-							move_vector.SetXY(-1, 0);
-						}
-						else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"]) {
-							move_vector.SetXY(0, 1);
-						}
-						else {
-							move_vector.SetXY(0, 0);
-						}
-					}
-					else {
-						if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"]) {
-							move_vector.SetXY(0, 1);
-						}
-						else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-							move_vector.SetXY(-1, 0);
-						}
-						else {
-							move_vector.SetXY(0, 0);
-						}
-					}
-				}
-				else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"]) {
-					move_vector.SetXY(0, -1);
-				}
-				else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["right"]) {
-					move_vector.SetXY(1, 0);
-				}
-				else {
-					move_vector.SetXY(0, 0);
-				}
-			}
-			else if (move_vector.GetY() >= 0 && move_vector.GetX() < 0) {
-				if (!GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"] && !GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-					if (x >= y) {
-						if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["right"]) {
-							move_vector.SetXY(1, 0);
-						}
-						else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"]) {
-							move_vector.SetXY(0, -1);
-						}
-						else {
-							move_vector.SetXY(0, 0);
-						}
-					}
-					else {
-						if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"]) {
-							move_vector.SetXY(0, -1);
-						}
-						else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["right"]) {
-							move_vector.SetXY(1, 0);
-						}
-						else {
-							move_vector.SetXY(0, 0);
-						}
-					}
-				}
-				else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"]) {
-					move_vector.SetXY(0, 1);
-				}
-				else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-					move_vector.SetXY(-1, 0);
-				}
-				else {
-					move_vector.SetXY(0, 0);
-				}
-			}else if (move_vector.GetY() >= 0 && move_vector.GetX() >= 0) {
-				if (!GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"] && !GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["right"]) {
-					if (x >= y) {
-						if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-							move_vector.SetXY(-1, 0);
-						}
-						else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"]) {
-							move_vector.SetXY(0, -1);
-						}
-						else {
-							move_vector.SetXY(0, 0);
-						}
-					}
-					else {
-						if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["up"]) {
-							move_vector.SetXY(0, -1);
-						}
-						else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-							move_vector.SetXY(-1, 0);
-						}
-						else {
-							move_vector.SetXY(0, 0);
-						}
-					}
-				}
-				else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["down"]) {
-					move_vector.SetXY(0, 1);
-				}
-				else if (GetOwner()->getComponent<SquareCollider>()->GetCanMoving()["left"]) {
-					move_vector.SetXY(-1, 0);
-				}
-				else {
-					move_vector.SetXY(0, 0);
-				}
-			}
-			else {
-				move_vector.SetXY(0, 0);
-			}
-
-			move_vector = move_vector.Normalize();
-
-			move_vector *= speed / 10;
-			GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
-			
-		}
+		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
 	}
-}
+	else if (GetOwner()->GetPosition().GetX() == 200 && GetOwner()->GetPosition().GetY() > 50) {
+		// Déplacement vers le haut
+		Maths::Vector2f move_vector(0, -1);
+		move_vector = move_vector.Normalize();
+		move_vector *= speed / 10;
+		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
+	}
+	else if (GetOwner()->GetPosition().GetY() == 50 && GetOwner()->GetPosition().GetX() < 500) {
+		// Déplacement vers la droite à y=50
+		Maths::Vector2f move_vector(1, 0);
+		move_vector = move_vector.Normalize();
+		move_vector *= speed / 10;
+		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
+	}
+	else if (GetOwner()->GetPosition().GetX() == 500 && GetOwner()->GetPosition().GetY() < 650) {
+		// Déplacement vers le bas
+		Maths::Vector2f move_vector(0, 1);
+		move_vector = move_vector.Normalize();
+		move_vector *= speed / 10;
+		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
+	}
+	else if (GetOwner()->GetPosition().GetY() == 650 && GetOwner()->GetPosition().GetX() < 900) {
+		// Déplacement vers la droite à y=500
+		Maths::Vector2f move_vector(1, 0);
+		move_vector = move_vector.Normalize();
+		move_vector *= speed / 10;
+		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
+	}
+	}
 
 void Enemy::PlaySound()
 {

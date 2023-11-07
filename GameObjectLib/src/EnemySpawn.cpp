@@ -1,3 +1,4 @@
+#include <iostream>
 #include <random>
 #include <chrono>
 #include "GameObject.h"
@@ -6,50 +7,15 @@
 
 void EnemySpawn(Scene* scene)
 {
-	auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	std::mt19937 gen(seed);
-	std::uniform_int_distribution<int> distribution(1, 4);
-	int nombre_aleatoire = distribution(gen);
 	Maths::Vector2f spawn_pos(0, 0);
+	std::cout << "ennemi" << std::endl;
 
-	if (nombre_aleatoire == 1)
-	{
-		spawn_pos.SetXY(400, -100);
-	}
-	else if (nombre_aleatoire == 2)
-	{
-		spawn_pos.SetXY(900, 400);
-	}
-	else if (nombre_aleatoire == 3)
-	{
-		spawn_pos.SetXY(400, 900);
-	}
-	else if (nombre_aleatoire == 4)
-	{
-		spawn_pos.SetXY(-100, 400);
-	}
+	spawn_pos.SetXY(-50, 400);
+
 	ObjectName name = ObjectName::EnemyName;
-	int hp = 0;
-	int speed = 0;
-	int damage = 0;
-	if (scene->GetLevel() == 1)
-	{
-		hp = 30;
-		speed = 20;
-		damage = 10;
-	}
-	else if (scene->GetLevel() == 2)
-	{
-		hp = 30;
-		speed = 30;
-		damage = 15;
-	}
-	else if (scene->GetLevel() == 3)
-	{
-		hp = 60;
-		speed = 20;
-		damage = 25;
-	}
+	int hp = 30;
+	int speed = 20;
+	int damage = 10;
 
 	GameObject* enemy = scene->CreateEnemy(name, spawn_pos, hp, speed, damage);
 }
@@ -57,7 +23,7 @@ void EnemySpawn(Scene* scene)
 std::chrono::high_resolution_clock::time_point CheckIfIsTimeToEnemySpawn(Scene* scene, std::chrono::high_resolution_clock::time_point time_for_enemy_spawn)
 {
 	auto duration = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - time_for_enemy_spawn);
-	double cooldown = 0;
+	double cooldown = 0.5;
 	if (scene->GetLevel() == 1)
 	{
 		cooldown = 1;
