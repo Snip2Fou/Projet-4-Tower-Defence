@@ -26,7 +26,7 @@ public:
 
 	GameObject* CreateGameObject(const ObjectName& _name);
 
-	GameObject* CreatePlayer(const ObjectName& name, const Maths::Vector2<float>& position, int hp, int speed, int damage);
+	GameObject* CreatePlayer(const ObjectName& name, const Maths::Vector2<float>& position, int hp);
 
 	GameObject* CreateEnemy(const ObjectName& name, const Maths::Vector2<float>& position, int hp, int speed, int damage);
 

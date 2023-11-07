@@ -74,29 +74,19 @@ GameObject* Scene::CreateEnemy(const ObjectName& name, const Maths::Vector2<floa
 	return gameObject;
 }
 
-GameObject* Scene::CreatePlayer(const ObjectName& name, const Maths::Vector2<float>& position, int hp, int speed, int damage)
+GameObject* Scene::CreatePlayer(const ObjectName& name, const Maths::Vector2<float>& position, int hp)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(position);
 
-	SpriteRenderer* spriteRenderer = gameObject->CreateComponent<SpriteRenderer>();
-	spriteRenderer->SetSprite(&texture["texture_player"], 0.07f, 0.07f);
-
-	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
-	squareCollider->SetWidth(spriteRenderer->GetWidth());
-	squareCollider->SetHeight(spriteRenderer->GetHeight());
-
 	Player* player = gameObject->CreateComponent<Player>();
 	player->SetHp(hp);
-	player->SetSpeed(speed);
-	player->SetDamage(damage);
 
 	LifeBar* lifebar = gameObject->CreateComponent<LifeBar>();
 	lifebar->SetHpMax(player->GetHp());
 	lifebar->SetHp(player->GetHp());
 	LifeBarRenderer* lifeBarRenderer = gameObject->CreateComponent<LifeBarRenderer>();
 	lifeBarRenderer->SetSprite(&texture["texture_life_bar"], 1, 1);
-	spriteRenderer->SetOrigin(player->GetPosition().GetX() / 2, player->GetPosition().GetY() / 2);
 
 	return gameObject;
 }

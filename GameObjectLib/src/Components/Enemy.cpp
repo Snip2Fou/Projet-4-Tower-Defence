@@ -36,7 +36,7 @@ void Enemy::Move(std::vector<GameObject*>* gameObjects) {
 	GetOwner()->getComponent<SquareCollider>()->SetCanMoving("right", true);
 	for (GameObject* const& gameObject : *gameObjects) {
 		bool collision = false;
-		if (GetOwner() != gameObject && gameObject->GetName() != ObjectName::ButtonName) {
+		if (GetOwner() != gameObject && gameObject->GetName() != ObjectName::ButtonName && gameObject->GetName() != ObjectName::PlayerName) {
 			collision = GetOwner()->getComponent<SquareCollider>()->IsColliding(*GetOwner()->getComponent<SquareCollider>(), *gameObject->getComponent<SquareCollider>());
 		}
 		if (gameObject->GetName() == ObjectName::PlayerName) {

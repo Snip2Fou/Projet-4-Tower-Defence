@@ -10,10 +10,7 @@ class Player : public Component
 {
 private:
 	int hp = 100;
-  int Angle = 0;
-	int speed = 5;
-	int damage = 1;
-  sf::SoundBuffer* soundBuffer;
+	sf::SoundBuffer* soundBuffer;
 	sf::Sound* sound;
 	Maths::Vector2<float> position = Maths::Vector2f::Zero;
 
@@ -23,15 +20,7 @@ public:
   
 	int GetHp() {return hp;}
 	void SetHp(int new_hp);
-	float GetAngle() { return Angle; }
-	void SetAngle(sf::RenderWindow* window);
-	int GetSpeed() { return speed; }
-	void SetSpeed(int new_speed) { speed = new_speed; }
-	int GetDamage() { return damage; }
-	void SetDamage(int new_damage) { damage = new_damage; }
 	void LossHp(int attack);
-	void CheckCollisionObject(GameObject* object);
-	void CheckCollisionEnemy(GameObject* object);
 	void PlaySound();
 	void StopSound();
 	void Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) override;

@@ -135,37 +135,8 @@ void EventFunctionsGame::eventMouseRight(sf::Event event, GameObject* actor, sf:
 	if (event.mouseButton.button == sf::Mouse::Right) {
 
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
+		
 
-		Maths::Vector2f mousePositionVec(mousePosition.x, mousePosition.y);
-		Maths::Vector2f VectorPlayerMouse = mousePositionVec - actor->GetPosition();
-
-		float AngleMouseHor = VectorPlayerMouse.Angle(HorizontalOrigin);
-		float AngleMouseVer = VectorPlayerMouse.Angle(VerticalOrigin);
-
-		std::cout << "Clic : " << mousePosition.x << ", " << mousePosition.y << std::endl;
-		std::cout << "Magnitude : " << VectorPlayerMouse.Magnitude() << std::endl;
-		std::cout << "Angle Horizontal : " << AngleMouseHor << std::endl;
-		std::cout << "Angle Veritical : " << AngleMouseVer << std::endl;
-		std::cout << "Facing : ";
-
-		if (AngleMouseHor <= 30)
-		{
-			std::cout << "Right" << std::endl << std::endl;
-		}
-		else if (AngleMouseHor > 150)
-		{
-			std::cout << "Left" << std::endl << std::endl;
-		}
-		else if (AngleMouseVer > 90)
-		{
-			std::cout << "Up";
-			angleWrite(AngleMouseHor);
-		}
-		else if (AngleMouseVer <= 90)
-		{
-			std::cout << "Down";
-			angleWrite(AngleMouseHor);
-		}
 	}
 }
 
@@ -180,9 +151,8 @@ bool EventFunctionsGame::eventMouseLeft(sf::Event event, GameObject* actor, sf::
 
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
 
-		Maths::Vector2f mousePositionVec(mousePosition.x, mousePosition.y);
-		Maths::Vector2f VectorPlayerMouse = mousePositionVec - actor->GetPosition();
 
+		
 		return false;
 	}
 	return false;
@@ -229,7 +199,7 @@ std::vector<Input*> EventFunctionsGame::createVectorInput() {
 	std::vector<Input*> inputListCreation;
 
 	// Remplir le vecteur avec les entrées désirées
-	inputListCreation.push_back(new Shoot());
+	inputListCreation.push_back(new Build());
 
 	return inputListCreation;
 }
@@ -244,7 +214,7 @@ void EventFunctionsGame::PlaySound()
 
 bool EventFunctionsGame::loopEvent(GameObject* actor, float sizeActor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, Scene* scene, float deltaTimeMilliseconds, bool *pauseOn) {
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
-	eventHoverButton(buttonList[0], mousePosition);
+	/*eventHoverButton(buttonList[0], mousePosition);*/
 
 	sf::Event event;
 	while (window->pollEvent(event)) {

@@ -14,13 +14,18 @@ int SceneGame::LoopGame(sf::RenderWindow* window)
 
 	// Bouton Pause
 	Button buttonClass;
-	GameObject* buttonPause = buttonClass.createButtonObj(&scene, "Pause");
+	/*GameObject* buttonPause = buttonClass.createButtonObj(&scene, "Pause");
 	if (buttonPause == nullptr) {
 		return 1;
-	}
-	eventFunction.buttonList.push_back(buttonPause);
+	}*/
+	/*eventFunction.buttonList.push_back(buttonPause);*/
 
-	GameObject* player = scene.CreatePlayer(ObjectName::PlayerName, Maths::Vector2f(375, 5), 200, 20, 30);
+	scene.SetTexture("texture_floor", "Assets/Image/floor-1.png");
+	scene.SetTexture("texture_life_bar", "Assets/Image/life_bar.png");
+
+
+	GameObject* player = scene.CreatePlayer(ObjectName::PlayerName, Maths::Vector2f(375, 5), 200);
+
 
 	sf::Clock clock;
 	auto time_for_enemy_spawn = std::chrono::high_resolution_clock::now();
@@ -40,7 +45,6 @@ int SceneGame::LoopGame(sf::RenderWindow* window)
 		{
 			return 0;
 		}
-		player->getComponent<Player>()->SetAngle(window);
 		// R�cup�rer la taille de la fen�tre
 		sf::Vector2u windowSize = window->getSize();
 

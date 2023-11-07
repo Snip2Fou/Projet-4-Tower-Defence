@@ -35,10 +35,10 @@ public:
         : inputType(Mouse), key(sf::Keyboard::Unknown), mouseButton(mb), inputBool(ib) {}
 };
 
-class Shoot : public Input
+class Build : public Input
 {
 public:
-    Shoot()
+    Build()
         : Input(sf::Mouse::Left, false) {}
 
     void execute(GameObject* actor, float sizeActor, sf::RenderWindow* window, std::vector<GameObject*>* gameObjects) override
