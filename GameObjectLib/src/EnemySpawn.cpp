@@ -23,19 +23,7 @@ void EnemySpawn(Scene* scene)
 std::chrono::high_resolution_clock::time_point CheckIfIsTimeToEnemySpawn(Scene* scene, std::chrono::high_resolution_clock::time_point time_for_enemy_spawn)
 {
 	auto duration = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - time_for_enemy_spawn);
-	double cooldown = 0.5;
-	if (scene->GetLevel() == 1)
-	{
-		cooldown = 1;
-	}
-	else if (scene->GetLevel() == 2)
-	{
-		cooldown = 0.85;
-	}
-	else if (scene->GetLevel() == 3)
-	{
-		cooldown = 0.7;
-	}
+	double cooldown = 1.2;
 
 	if (duration.count() >= cooldown)
 	{

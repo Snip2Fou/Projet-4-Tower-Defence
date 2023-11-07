@@ -30,35 +30,30 @@ Enemy::~Enemy()
 void Enemy::Move(std::vector<GameObject*>* gameObjects) {
 
 	if (GetOwner()->GetPosition().GetX() < 200) {
-		// Déplacement vers la droite
 		Maths::Vector2f move_vector(1, 0);
 		move_vector = move_vector.Normalize();
 		move_vector *= speed / 10;
 		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
 	}
-	else if (GetOwner()->GetPosition().GetX() == 200 && GetOwner()->GetPosition().GetY() > 50) {
-		// Déplacement vers le haut
+	else if (GetOwner()->GetPosition().GetX() == 200 && GetOwner()->GetPosition().GetY() > 80) {
 		Maths::Vector2f move_vector(0, -1);
 		move_vector = move_vector.Normalize();
 		move_vector *= speed / 10;
 		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
 	}
-	else if (GetOwner()->GetPosition().GetY() == 50 && GetOwner()->GetPosition().GetX() < 500) {
-		// Déplacement vers la droite à y=50
+	else if (GetOwner()->GetPosition().GetY() == 80 && GetOwner()->GetPosition().GetX() < 500) {
 		Maths::Vector2f move_vector(1, 0);
 		move_vector = move_vector.Normalize();
 		move_vector *= speed / 10;
 		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
 	}
 	else if (GetOwner()->GetPosition().GetX() == 500 && GetOwner()->GetPosition().GetY() < 650) {
-		// Déplacement vers le bas
 		Maths::Vector2f move_vector(0, 1);
 		move_vector = move_vector.Normalize();
 		move_vector *= speed / 10;
 		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
 	}
 	else if (GetOwner()->GetPosition().GetY() == 650 && GetOwner()->GetPosition().GetX() < 900) {
-		// Déplacement vers la droite à y=500
 		Maths::Vector2f move_vector(1, 0);
 		move_vector = move_vector.Normalize();
 		move_vector *= speed / 10;
@@ -77,10 +72,6 @@ void Enemy::StopSound()
 	soundEnemy->setBuffer(*soundBufferEnemy);
 	soundEnemy->stop();
 }
-
-
-
-
 
 void Enemy::ResetScore(int new_score)
 {
