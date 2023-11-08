@@ -20,7 +20,7 @@ public:
   
 	int Vague = 1;
 
-	int GetHp() {return hp;}
+	int GetHp();
 	void SetHp(int new_hp);
 	void LossHp(int attack);
 	void PlaySound();
