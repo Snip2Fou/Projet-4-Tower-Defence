@@ -14,6 +14,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 	Scene scene;
 	EventFunctionsGame eventFunction;
 	EventFunctionPause eventFunctionPause;
+	Vague vague;
 
 	// Bouton Pause
 	Button buttonClass;
@@ -66,7 +67,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 		{
 			sceneOn = eventFunction.loopEvent(player, 50, window, game.HorizontalOrigin, game.VerticalOrigin, &scene, deltaTimeMilliseconds, &pauseOn); //Enlever pour pause
 
-			time_for_enemy_spawn = CheckIfIsTimeToEnemySpawn(&scene, time_for_enemy_spawn); //Enlever pour pause
+			time_for_enemy_spawn = vague.CheckIfIsTimeToEnemySpawn(&scene, time_for_enemy_spawn, &player->getComponent<Player>()->Vague); //Enlever pour pause
 
 			scene.Update(deltaTimeMilliseconds); //Enlever pour pause
 		}
