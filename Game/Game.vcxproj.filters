@@ -42,7 +42,10 @@
     <ClCompile Include="src\SceneMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scenePause.cpp">
+    <ClCompile Include="eventPause.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="eventPause.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

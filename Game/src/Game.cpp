@@ -9,7 +9,7 @@ int Game::gameOn() {
 
 	while (window->isOpen())
 	{
-		int loopMenuToChangeScene = sceneMenu.LoopGame(window);
+		int loopMenuToChangeScene = sceneMenu.LoopGame(window, false);
 		while ((loopMenuToChangeScene != (-1)) && (loopMenuToChangeScene != 4))
 		{
 			
@@ -17,11 +17,15 @@ int Game::gameOn() {
 			// Game On
 			if (loopMenuToChangeScene == 1)
 			{
-				int GameIsOn = sceneGame.LoopGame(window);
+				int GameIsOn = sceneGame.LoopGame(window, false);
 				//Erreur
 				if (GameIsOn == 1)
 				{
 					return 1;
+				}
+				if (GameIsOn == -1)
+				{
+					return 0;
 				}
 			}
 
@@ -37,7 +41,7 @@ int Game::gameOn() {
 				std::cout << "J'étais à la PGW, pas eu le temps" << std::endl <<  "Achievement" << std::endl;
 			}
 
-			loopMenuToChangeScene = sceneMenu.LoopGame(window);
+			loopMenuToChangeScene = sceneMenu.LoopGame(window, false);
 		}
 
 		// Erreur

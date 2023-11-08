@@ -6,4 +6,5 @@ enum ObjectName
 	EnemyName,
 	WallName,
 	ButtonName,
+	ShapeName,
 };

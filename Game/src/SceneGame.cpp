@@ -1,24 +1,27 @@
 ﻿#include <chrono>
 
 #include "eventGame.h"
+#include "..//eventPause.h"
 #include "Scenes.h"
 #include "Game.h"
 #include "EnemySpawn.h"
 #include "TowerSpot.h"
+#include "Button.h"
 
-int SceneGame::LoopGame(sf::RenderWindow* window)
+int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 {
 	Game game;
 	Scene scene;
 	EventFunctionsGame eventFunction;
+	EventFunctionPause eventFunctionPause;
 
 	// Bouton Pause
-	//Button buttonClass;
-	/*GameObject* buttonPause = buttonClass.createButtonObj(&scene, "Pause");
+	Button buttonClass;
+	GameObject* buttonPause = buttonClass.createButtonObj(&scene, "Pause");
 	if (buttonPause == nullptr) {
 		return 1;
-	}*/
-	/*eventFunction.buttonList.push_back(buttonPause);*/
+	}
+	eventFunction.buttonList.push_back(buttonPause);
 
 	scene.SetTexture("texture_floor", "Assets/Image/floor-1.png");
 	scene.SetTexture("texture_enemy", "Assets/Image/zombie.png");
@@ -43,7 +46,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window)
 	clock.restart();
 
 	bool sceneOn = true;
-	bool pause = false;
+	bool pauseOn = false;
 	while (sceneOn)
 	{
 		if (player->getComponent<Player>()->isDead(scene.GetGameObjects()))
@@ -59,13 +62,22 @@ int SceneGame::LoopGame(sf::RenderWindow* window)
 		sf::Time deltaTime = clock.restart();
 		float deltaTimeMilliseconds = deltaTime.asMilliseconds();
 
-		if (pause == false)
+		if (pauseOn == false)
 		{
-			sceneOn = eventFunction.loopEvent(player, 50, window, game.HorizontalOrigin, game.VerticalOrigin, &scene, deltaTimeMilliseconds, &pause); //Enlever pour pause
+			sceneOn = eventFunction.loopEvent(player, 50, window, game.HorizontalOrigin, game.VerticalOrigin, &scene, deltaTimeMilliseconds, &pauseOn); //Enlever pour pause
 
 			time_for_enemy_spawn = CheckIfIsTimeToEnemySpawn(&scene, time_for_enemy_spawn); //Enlever pour pause
 
 			scene.Update(deltaTimeMilliseconds); //Enlever pour pause
+		}
+		if (pauseOn)
+		{
+			int temp = eventFunctionPause.loopEvent(window, &pauseOn);
+			if (temp == 1)
+			{
+				window->close();
+				return -1;
+			}
 		}
 		
 

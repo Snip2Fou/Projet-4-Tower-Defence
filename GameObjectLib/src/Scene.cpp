@@ -116,6 +116,15 @@ GameObject* Scene::CreateButton(const ObjectName& name, const Maths::Vector2<flo
 	return gameObject;
 }
 
+void Scene::CreateShape(const ObjectName& name, const sf::Color color, const sf::Vector2f size) {
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2<float>(size.x/2, size.y/2));
+
+	ShapeRenderer* shapeRenderer = gameObject->CreateComponent<ShapeRenderer>();
+	shapeRenderer->SetColor(color);
+	shapeRenderer->SetSize(size);
+}
+
 int Scene::SetTexture(std::string nom_texture, std::string chemin_fichier)
 {
 	sf::Texture new_texture;

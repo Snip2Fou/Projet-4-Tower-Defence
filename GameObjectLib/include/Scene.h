@@ -37,6 +37,8 @@ public:
 
 	GameObject* CreateButton(const ObjectName& name, const Maths::Vector2<float>& position, const sf::Color color, const sf::Color colorHover, const sf::Color colorClick, sf::Vector2f size, std::string type);
 
+	void CreateShape(const ObjectName& name, const sf::Color color, const sf::Vector2f size);
+
 private:
 	std::vector<GameObject*> gameObjects;
 	std::unordered_map<std::string, sf::Texture> texture;

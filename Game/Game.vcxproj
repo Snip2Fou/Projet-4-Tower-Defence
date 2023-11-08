@@ -156,13 +156,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="eventPause.cpp" />
+    <ClCompile Include="eventPause.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\eventGame.cpp" />
     <ClCompile Include="src\eventMenu.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\SceneGame.cpp" />
     <ClCompile Include="src\SceneMenu.cpp" />
-    <ClCompile Include="src\scenePause.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameObjectLib\GameObjectLib.vcxproj">
