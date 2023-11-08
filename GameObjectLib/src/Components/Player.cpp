@@ -1,6 +1,6 @@
 #include "Components/Player.h"
 #include "GameObject.h"
-
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Components/SpriteRenderer.h"
