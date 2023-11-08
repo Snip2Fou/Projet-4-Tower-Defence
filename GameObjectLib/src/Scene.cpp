@@ -13,6 +13,7 @@
 #include "Components/Player.h"
 #include "Components/Button.h"
 #include "Components/LifeBar.h"
+#include "Components/Ressources.h"
 
 #include "GameObject.h"
 
@@ -76,6 +77,16 @@ GameObject* Scene::CreatePlayer(const ObjectName& name, const Maths::Vector2<flo
 	lifebar->SetHp(player->GetHp());
 	LifeBarRenderer* lifeBarRenderer = gameObject->CreateComponent<LifeBarRenderer>();
 	lifeBarRenderer->SetSprite(&texture["texture_life_bar"], 1, 1);
+
+	Ressources* ressource = gameObject->CreateComponent<Ressources>();
+	ressource->SetName("Bois");
+	ressource->SetType(1);
+	ressource->GetNombre();
+
+	Ressources* ressource2 = gameObject->CreateComponent<Ressources>();
+	ressource2->SetName("Pierre");
+	ressource2->SetType(2);
+	ressource2->GetNombre();
 
 	return gameObject;
 }

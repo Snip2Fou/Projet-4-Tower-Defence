@@ -1,10 +1,8 @@
 #pragma once
 
-#include "GameObject.h"
-#include "SFML/Graphics.hpp"
-#include "SFML/Audio.hpp"
+#include "Component.h"
 
-class Ressources
+class Ressources : public Component
 {
 public:
 	Ressources() = default;
@@ -12,6 +10,11 @@ public:
 	std::string GetName() { return name; }
 	int GetNombre() { return nombre; }
 	int GetType() { return type; }
+	std::string SetName(std::string new_name);
+	int SetNombre(int new_nombre);
+	int SetType(int new_type);
+
+	void Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) override;
 
 private:
 	std::string name;

@@ -1,4 +1,5 @@
 #include "Components/Ressources.h"
+#include <iostream>
 
 std::string Ressources::SetName(std::string new_name)
 {
@@ -8,12 +9,18 @@ std::string Ressources::SetName(std::string new_name)
 
 int Ressources::SetNombre(int new_nombre)
 {
-	nombre = new_nombre;
+	nombre = nombre + new_nombre;
 	return nombre;
+	std::cout << nombre << std::endl;
 }
 
 int Ressources::SetType(int new_type)
 {
 	type = new_type;
 	return type;
+}
+
+void Ressources::Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects)
+{
+	SetNombre(1);
 }
