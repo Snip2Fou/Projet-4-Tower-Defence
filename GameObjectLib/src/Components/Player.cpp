@@ -29,6 +29,26 @@ Player::~Player()
 	soundBuffer = nullptr;
 }
 
+int Player::GetHp(){
+	std::string line;
+	std::string data;
+	std::ifstream myfile("Model.txt");
+	if (myfile.is_open()) {
+		while (getline(myfile, line)) {
+			size_t pos = line.find("Life");
+			if (pos != std::string::npos) {
+				std::string data = line.substr(pos + 5);
+				std::cout << "Data after Life: " << data << std::endl;
+			}
+		}
+		myfile.close();
+	}
+	else {
+		std::cout << "Unable to open file" << std::endl;
+	}
+	return std::stoi(data);
+}
+
 void Player::SetHp(int new_hp) 
 {
 	hp = new_hp;
