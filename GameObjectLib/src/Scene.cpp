@@ -44,13 +44,13 @@ GameObject* Scene::CreateGameObject(const ObjectName& _name)
 	return gameObject;
 }
 
-GameObject* Scene::CreateEnemy(const ObjectName& name, const Maths::Vector2<float>& position, int hp, int speed, int damage)
+GameObject* Scene::CreateEnemy(const ObjectName& name, const Maths::Vector2<float>& position, int hp, int speed, int damage, std::string sprite)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(position);
 
 	SpriteRenderer* spriteRenderer = gameObject->CreateComponent<SpriteRenderer>();
-	spriteRenderer->SetSprite(&texture["texture_enemy"], 1, 1);
+	spriteRenderer->SetSprite(&texture[sprite], 1, 1);
 
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetWidth(spriteRenderer->GetWidth());

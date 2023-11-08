@@ -14,6 +14,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 	Scene scene;
 	EventFunctionsGame eventFunction;
 	EventFunctionPause eventFunctionPause;
+	EnemySpawn enemySpawn;
 
 	// Bouton Pause
 	Button buttonClass;
@@ -24,8 +25,10 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 	eventFunction.buttonList.push_back(buttonPause);
 
 	scene.SetTexture("texture_floor", "Assets/Image/floor-1.png");
-	scene.SetTexture("texture_enemy", "Assets/Image/zombie.png");
+	scene.SetTexture("texture_enemy1", "Assets/Image/zombie.png");
+	scene.SetTexture("texture_enemy2", "Assets/Image/GreenGrougrou.png");
 	scene.SetTexture("texture_life_bar", "Assets/Image/life_bar.png");
+	scene.SetTexture("texture_boss", "Assets/Image/thomasBoss.png");
 
 	GameObject* player = scene.CreatePlayer(ObjectName::PlayerName, Maths::Vector2f(375, 5), 200);
 
@@ -66,7 +69,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 		{
 			sceneOn = eventFunction.loopEvent(player, 50, window, game.HorizontalOrigin, game.VerticalOrigin, &scene, deltaTimeMilliseconds, &pauseOn); //Enlever pour pause
 
-			time_for_enemy_spawn = CheckIfIsTimeToEnemySpawn(&scene, time_for_enemy_spawn); //Enlever pour pause
+			time_for_enemy_spawn = enemySpawn.CheckIfIsTimeToEnemySpawn(&scene, time_for_enemy_spawn); //Enlever pour pause
 
 			scene.Update(deltaTimeMilliseconds); //Enlever pour pause
 		}
