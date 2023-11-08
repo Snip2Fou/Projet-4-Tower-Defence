@@ -18,6 +18,8 @@ public:
 	Player();
 	~Player();
   
+	int Vague = 1;
+
 	int GetHp() {return hp;}
 	void SetHp(int new_hp);
 	void LossHp(int attack);
