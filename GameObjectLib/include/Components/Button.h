@@ -39,6 +39,19 @@ private:
 	sf::Color colorPauseClick = sf::Color(93, 93, 93);
 	sf::Vector2f sizePause = sf::Vector2f(hauteur / 2, hauteur / 2);
 
+	Maths::Vector2<float> positionBuildMenu = Maths::Vector2<float>(12.5, windowConfig.largeur-12.5);
+	sf::Color colorBuildMenu = sf::Color(255, 255, 255);
+	sf::Color colorBuildMenuHover = sf::Color(27, 27, 27);
+	sf::Color colorBuildMenuClick = sf::Color(93, 93, 93);
+	sf::Vector2f sizeBuildMenu = sf::Vector2f(25, 25);
+
+	Maths::Vector2<float> positionButtonTower1 = Maths::Vector2<float>(22.5, windowConfig.largeur + 22.5);
+	sf::Color colorButtonTower1 = sf::Color::Red;
+	sf::Color colorButtonTower1Hover = sf::Color::Blue;
+	sf::Color colorButtonTower1Click = sf::Color::Cyan;
+	sf::Vector2f sizeButtonTower1 = sf::Vector2f(25, 25);
+
+
 public:
 	std::string type = "";
 

@@ -13,6 +13,7 @@ private:
 	sf::SoundBuffer* soundBuffer;
 	sf::Sound* sound;
 	Maths::Vector2<float> position = Maths::Vector2f::Zero;
+	GameObject* choosen_spot = nullptr;
 
 public:
 	Player();
@@ -20,6 +21,8 @@ public:
   
 	int GetHp() {return hp;}
 	void SetHp(int new_hp);
+	GameObject* GetChoosenSpot() { return choosen_spot; }
+	void SetChoosenSpot(GameObject* new_choosen_spot) { choosen_spot = new_choosen_spot; }
 	void LossHp(int attack);
 	void PlaySound();
 	void StopSound();

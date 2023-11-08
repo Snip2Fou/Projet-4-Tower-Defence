@@ -65,17 +65,21 @@ void EventFunctionsGame::eventHoverButton(GameObject* buttonCheck, sf::Vector2i 
 
 }
 
-bool EventFunctionsGame::eventCheckClickButton(sf::Vector2i mousePosition, sf::Event event, sf::RenderWindow* window) {
+bool EventFunctionsGame::eventCheckClickButton(sf::Vector2i mousePosition, sf::Event event, sf::RenderWindow* window, std::string buttontype, GameObject* actor) {
 	std::vector<std::string> returnWhat;
 
 	for (GameObject* buttonCheck : buttonList)
 	{
-		returnWhat.push_back(eventClickButton(buttonCheck, mousePosition));
+		std::string response = eventClickButton(buttonCheck, mousePosition);
+		if (response == "Spot") {
+			actor->getComponent<Player>()->SetChoosenSpot(buttonCheck);
+		}
+		returnWhat.push_back(response);
 	}
 
 	for (std::string returnWhatBool : returnWhat)
 	{
-		if (returnWhatBool == "Pause") {
+		if (returnWhatBool == buttontype) {
 			return true;
 		}
 	}
@@ -141,18 +145,16 @@ void EventFunctionsGame::eventMouseRight(sf::Event event, GameObject* actor, sf:
 	}
 }
 
-bool EventFunctionsGame::eventMouseLeft(sf::Event event, GameObject* actor, sf::RenderWindow* window, Scene* scene, float deltaTimeMilliseconds, sf::Vector2i mousePosition)
+bool EventFunctionsGame::eventMouseLeft(sf::Event event, GameObject* actor, sf::RenderWindow* window, Scene* scene, float deltaTimeMilliseconds, sf::Vector2i mousePosition, std::string buttontype)
 {
 	if (event.mouseButton.button == sf::Mouse::Left)
 	{
-		if (eventCheckClickButton(mousePosition, event, window))
+		if (eventCheckClickButton(mousePosition, event, window, buttontype, actor))
 		{
 			return true;
 		}
 
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
-
-
 		
 		return false;
 	}
@@ -160,7 +162,7 @@ bool EventFunctionsGame::eventMouseLeft(sf::Event event, GameObject* actor, sf::
 }
 
 
-bool EventFunctionsGame::eventMousePressed(sf::Event event, GameObject* actor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, Scene* scene, float deltaTimeMilliseconds, sf::Vector2i mousePosition) {
+bool EventFunctionsGame::eventMousePressed(sf::Event event, GameObject* actor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, Scene* scene, float deltaTimeMilliseconds, sf::Vector2i mousePosition, std::string buttontype) {
 	//for (Input* input : inputList)
 	//{
 	//	if (input->inputType == Input::Mouse && input->mouseButton == event.mouseButton.button)
@@ -169,7 +171,7 @@ bool EventFunctionsGame::eventMousePressed(sf::Event event, GameObject* actor, s
 	//	}
 	//}
 	eventMouseRight(event, actor, window, HorizontalOrigin, VerticalOrigin);
-	return eventMouseLeft(event, actor, window, scene, deltaTimeMilliseconds, mousePosition);
+	return eventMouseLeft(event, actor, window, scene, deltaTimeMilliseconds, mousePosition, buttontype);
 }
 
 void EventFunctionsGame::eventMouseRelease(sf::Event event)  {
@@ -213,7 +215,7 @@ void EventFunctionsGame::PlaySound()
 
 
 
-bool EventFunctionsGame::loopEvent(GameObject* actor, float sizeActor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, Scene* scene, float deltaTimeMilliseconds, bool *pauseOn) {
+bool EventFunctionsGame::loopEvent(GameObject* actor, float sizeActor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, Scene* scene, float deltaTimeMilliseconds, bool *pauseOn, bool *buildMenuvisible){
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
 	/*eventHoverButton(buttonList[0], mousePosition);*/
 
@@ -236,14 +238,21 @@ bool EventFunctionsGame::loopEvent(GameObject* actor, float sizeActor, sf::Rende
 		}
 
 		else if (event.type == sf::Event::MouseButtonPressed) {
-			*pauseOn = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition);
+			*pauseOn = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition, "Pause");
+			bool buttonOpenBuildMenu = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition, "BuildMenu");
+			bool spotOpenBuildMenu = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition, "Spot");
+			if (*buildMenuvisible == false && (buttonOpenBuildMenu == true || spotOpenBuildMenu== true)) {
+				*buildMenuvisible = true;
+			}
+			else if (*buildMenuvisible == true && (buttonOpenBuildMenu == true || spotOpenBuildMenu == true)) {
+				*buildMenuvisible = false;
+			}
 		}
 
 		else if (event.type == sf::Event::MouseButtonReleased) {
 			eventMouseRelease(event);
 		}
 	}
-
 
 	// Parcourir les entrées du souris
 	eventExecute(actor, sizeActor, window, scene->GetGameObjects());

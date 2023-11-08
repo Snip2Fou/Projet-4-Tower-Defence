@@ -1,12 +1,13 @@
 ﻿#include <chrono>
 
 #include "eventGame.h"
-#include "..//eventPause.h"
+#include "eventPause.h"
 #include "Scenes.h"
 #include "Game.h"
 #include "EnemySpawn.h"
 #include "TowerSpot.h"
 #include "Button.h"
+#include "BuildMenu.h"
 
 int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 {
@@ -30,7 +31,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 	scene.SetTexture("texture_life_bar", "Assets/Image/life_bar.png");
 	scene.SetTexture("texture_boss", "Assets/Image/thomasBoss.png");
 
-	GameObject* player = scene.CreatePlayer(ObjectName::PlayerName, Maths::Vector2f(375, 5), 200);
+
 
 	sf::Clock clock;
 	auto time_for_enemy_spawn = std::chrono::high_resolution_clock::now();
@@ -42,12 +43,25 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 
 	TowerSpot spotClass;
 
-	GameObject* button1 = spotClass.createButtonObj(&scene, "1");
-	GameObject* button2 = spotClass.createButtonObj(&scene, "2");
-	GameObject* button3 = spotClass.createButtonObj(&scene, "3");
+	GameObject* spot1 = spotClass.createButtonObj(&scene, "Spot", 1);
+	GameObject* spot2 = spotClass.createButtonObj(&scene, "Spot", 2);
+	GameObject* spot3 = spotClass.createButtonObj(&scene, "Spot", 3);
+	eventFunction.buttonList.push_back(spot1);
+	eventFunction.buttonList.push_back(spot2);
+	eventFunction.buttonList.push_back(spot3);
+
+	GameObject* buttonBuildMenu = buttonClass.createButtonObj(&scene, "BuildMenu");
+	eventFunction.buttonList.push_back(buttonBuildMenu);
+
+	GameObject* buttonTower1 = buttonClass.createButtonObj(&scene, "ButtonTower1");
+	eventFunction.buttonList.push_back(buttonTower1);
+
+	BuildMenu build_menu;
+	build_menu.SetButtonTower1(buttonTower1);
 
 	clock.restart();
 
+	GameObject* player = scene.CreatePlayer(ObjectName::PlayerName, Maths::Vector2f(375, 5), 200);
 	bool sceneOn = true;
 	bool pauseOn = false;
 	while (sceneOn)
@@ -67,11 +81,11 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 
 		if (pauseOn == false)
 		{
-			sceneOn = eventFunction.loopEvent(player, 50, window, game.HorizontalOrigin, game.VerticalOrigin, &scene, deltaTimeMilliseconds, &pauseOn); //Enlever pour pause
-
+			sceneOn = eventFunction.loopEvent(player, 50, window, game.HorizontalOrigin, game.VerticalOrigin, &scene, deltaTimeMilliseconds, &pauseOn, &build_menu.isvisible); //Enlever pour pause
 			time_for_enemy_spawn = enemySpawn.CheckIfIsTimeToEnemySpawn(&scene, time_for_enemy_spawn); //Enlever pour pause
 
 			scene.Update(deltaTimeMilliseconds); //Enlever pour pause
+			build_menu.Update(buttonBuildMenu);
 		}
 		if (pauseOn)
 		{
@@ -82,13 +96,13 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 				return -1;
 			}
 		}
-		
 
 		window->clear();
 		// Dessiner le sprite
 		window->draw(sprite);
 
 		scene.Render(window);
+		build_menu.Render(window);
 		window->display();
 	}
 	return 0;
