@@ -14,10 +14,8 @@ public:
 	int SetNombre(int new_nombre);
 	int SetType(int new_type);
 
-	void Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) override;
-
 private:
 	std::string name;
-	int nombre;
-	int type;
+	int nombre = 0;
+	int type = 0;
 };

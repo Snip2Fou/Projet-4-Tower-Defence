@@ -77,6 +77,20 @@ void Player::StopSound()
 	sound->stop();
 }
 
+void Player::SetRessource1(Ressources new_ressource)
+{
+	ressource1.SetName(new_ressource.GetName());
+	ressource1.SetType(new_ressource.GetType());
+	ressource1.SetNombre(new_ressource.GetNombre());
+}
+
+void Player::SetRessource2(Ressources new_ressource)
+{
+	ressource2.SetName(new_ressource.GetName());
+	ressource2.SetType(new_ressource.GetType());
+	ressource2.SetNombre(new_ressource.GetNombre());
+}
+
 void Player::Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) {
 
 };

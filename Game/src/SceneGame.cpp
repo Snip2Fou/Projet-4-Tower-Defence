@@ -8,6 +8,7 @@
 #include "TowerSpot.h"
 #include "Button.h"
 
+
 int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 {
 	Game game;
@@ -31,6 +32,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 	scene.SetTexture("texture_boss", "Assets/Image/thomasBoss.png");
 
 	GameObject* player = scene.CreatePlayer(ObjectName::PlayerName, Maths::Vector2f(375, 5), 200);
+
 
 	sf::Clock clock;
 	auto time_for_enemy_spawn = std::chrono::high_resolution_clock::now();
@@ -64,6 +66,12 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 
 		sf::Time deltaTime = clock.restart();
 		float deltaTimeMilliseconds = deltaTime.asMilliseconds();
+
+		player->getComponent<Player>()->GetRessource1().SetNombre(1.f *deltaTimeMilliseconds / 15);
+		player->getComponent<Player>()->GetRessource2().SetNombre(1.f * deltaTimeMilliseconds / 20);
+		std::cout << "ressource  bois:" << player->getComponent<Player>()->GetRessource1().GetNombre() << std::endl;
+		std::cout << "ressource  Pierre:" << player->getComponent<Player>()->GetRessource2().GetNombre() << std::endl;
+		
 
 		if (pauseOn == false)
 		{

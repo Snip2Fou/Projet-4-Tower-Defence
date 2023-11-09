@@ -1,4 +1,4 @@
-#include "Scene.h"
+ #include "Scene.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <iostream>
@@ -78,15 +78,17 @@ GameObject* Scene::CreatePlayer(const ObjectName& name, const Maths::Vector2<flo
 	LifeBarRenderer* lifeBarRenderer = gameObject->CreateComponent<LifeBarRenderer>();
 	lifeBarRenderer->SetSprite(&texture["texture_life_bar"], 1, 1);
 
-	Ressources* ressource = gameObject->CreateComponent<Ressources>();
-	ressource->SetName("Bois");
-	ressource->SetType(1);
-	ressource->GetNombre();
+	Ressources ressource;
+	ressource.SetName("Bois");
+	ressource.SetType(1);
+	ressource.GetNombre();
+	player->SetRessource1(ressource);
 
-	Ressources* ressource2 = gameObject->CreateComponent<Ressources>();
-	ressource2->SetName("Pierre");
-	ressource2->SetType(2);
-	ressource2->GetNombre();
+	Ressources ressource2;
+	ressource2.SetName("Pierre");
+	ressource2.SetType(2);
+	ressource2.GetNombre();
+	player->SetRessource2(ressource2);
 
 	return gameObject;
 }

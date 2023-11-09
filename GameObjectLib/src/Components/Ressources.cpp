@@ -19,8 +19,3 @@ int Ressources::SetType(int new_type)
 	type = new_type;
 	return type;
 }
-
-void Ressources::Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects)
-{
-	SetNombre(1);
-}
