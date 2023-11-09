@@ -117,10 +117,16 @@ void Player::CheckBuildTower(std::vector<GameObject*>* gameObjects) {
 		Tower* tower = gameObject->CreateComponent<Tower>();
 		if (choosen_tower->getComponent<Button>()->type == "ButtonTower1") {
 			tower->SetType(TowerType::ArcherType);
+			tower->SetDamage(10);
+			tower->SetRange(20);
 		}else if (choosen_tower->getComponent<Button>()->type == "ButtonTower2") {
 			tower->SetType(TowerType::MageType);
+			tower->SetDamage(15);
+			tower->SetRange(15);
 		}else if (choosen_tower->getComponent<Button>()->type == "ButtonTower3") {
 			tower->SetType(TowerType::BomberType);
+			tower->SetDamage(20);
+			tower->SetRange(10);
 		}
 
 		ShapeRenderer* shape_renderer = gameObject->CreateComponent<ShapeRenderer>();
@@ -134,6 +140,7 @@ void Player::CheckBuildTower(std::vector<GameObject*>* gameObjects) {
 		choosen_spot->getComponent<Button>()->is_activate = false;
 		choosen_spot->getComponent<Button>()->color = choosen_tower->getComponent<Button>()->colorNothing;
 		choosen_spot->getComponent<ShapeRenderer>()->SetColor(choosen_spot->getComponent<Button>()->color);
+		choosen_spot->getComponent<Button>()->target = gameObject;
 		choosen_spot = nullptr;
 		choosen_tower = nullptr;
 	}

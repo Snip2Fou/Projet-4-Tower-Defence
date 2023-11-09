@@ -41,9 +41,10 @@ public:
 	void StopSound();
 	void Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) override;
 	bool isDead(std::vector<GameObject*>* gameObjects);
-	void Move(Maths::Vector2f new_position, std::string direction , std::vector<GameObject*>* gameObjects);
 	Maths::Vector2<float> GetPosition() const { return position; }
 
 	void CheckBuildTower(std::vector<GameObject*>* gameObjects);
+
+	std::vector<GameObject*>* GetTowers() { return &towers; }
 };
 

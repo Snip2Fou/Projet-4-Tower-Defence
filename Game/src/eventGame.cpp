@@ -121,6 +121,53 @@ bool EventFunctionsGame::eventCheckClickButton(sf::Vector2i mousePosition, sf::E
 	return false;
 }
 
+bool EventFunctionsGame::eventCheckClickButtonRight(sf::Vector2i mousePosition, sf::Event event, sf::RenderWindow* window, std::string buttontype, GameObject* actor, Scene* scene) {
+	std::vector<std::string> returnWhat;
+
+	for (GameObject* buttonCheck : buttonList)
+	{
+		std::string response = eventClickButton(buttonCheck, mousePosition);
+
+		if (response == "Spot") {
+			if (!buttonCheck->getComponent<Button>()->is_activate) {
+				buttonCheck->getComponent<Button>()->is_activate = true;
+				buttonCheck->getComponent<Button>()->is_selected = false;
+				buttonCheck->getComponent<Button>()->target->RemoveComponent(buttonCheck->getComponent<Tower>());
+				buttonCheck->getComponent<Button>()->target->RemoveComponent(buttonCheck->getComponent<ShapeRenderer>());
+				for (auto it =  actor->getComponent<Player>()->GetTowers()->begin(); it != actor->getComponent<Player>()->GetTowers()->end(); ++it)
+				{
+					if (*it == buttonCheck->getComponent<Button>()->target)
+					{
+						actor->getComponent<Player>()->GetTowers()->erase(it);
+						break;
+					}
+				}
+				for (auto it = scene->GetGameObjects()->begin(); it != scene->GetGameObjects()->end(); ++it)
+				{
+					if (*it == buttonCheck->getComponent<Button>()->target)
+					{
+						delete buttonCheck->getComponent<Button>()->target;
+						scene->GetGameObjects()->erase(it);
+						return true;
+					}
+				}
+				buttonCheck->getComponent<Button>()->target = nullptr;
+				eventChangeColorButton(buttonCheck, buttonCheck->getComponent<Button>()->colorNothing);
+			}
+		}
+
+		returnWhat.push_back(response);
+	}
+
+	for (std::string returnWhatBool : returnWhat)
+	{
+		if (returnWhatBool == buttontype) {
+			return true;
+		}
+	}
+	return false;
+}
+
 std::string EventFunctionsGame::eventClickButton(GameObject* buttonCheck, sf::Vector2i mousePosition) {
 	Button* buttonCheckButton = buttonCheck->getComponent<Button>();
 
@@ -176,11 +223,12 @@ void EventFunctionsGame::angleWrite(float AngleMouseHor) {
 	}
 }
 
-void EventFunctionsGame::eventMouseRight(sf::Event event, GameObject* actor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin) {
+void EventFunctionsGame::eventMouseRight(sf::Event event, GameObject* actor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, std::string buttontype, Scene* scene) {
 	if (event.mouseButton.button == sf::Mouse::Right) {
 
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
 		
+		eventCheckClickButtonRight(mousePosition, event, window, buttontype, actor, scene);
 
 	}
 }
@@ -210,7 +258,7 @@ bool EventFunctionsGame::eventMousePressed(sf::Event event, GameObject* actor, s
 	//		input->inputBool = true;
 	//	}
 	//}
-	eventMouseRight(event, actor, window, HorizontalOrigin, VerticalOrigin);
+	eventMouseRight(event, actor, window, HorizontalOrigin, VerticalOrigin, buttontype, scene);
 	return eventMouseLeft(event, actor, window, scene, deltaTimeMilliseconds, mousePosition, buttontype);
 }
 

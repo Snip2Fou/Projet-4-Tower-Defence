@@ -67,6 +67,7 @@ public:
 
 	bool is_selected = false;
 	bool is_activate = true;
+	GameObject* target;
 
 	GameObject* createButtonObj(Scene* scene, std::string type);
 	void Update(float DeltaTimeMillisecondes, std::vector<GameObject*>* gameObject) override;
