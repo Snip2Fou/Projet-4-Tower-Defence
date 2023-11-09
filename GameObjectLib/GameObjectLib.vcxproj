@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\Bullet.cpp" />
     <ClCompile Include="src\Components\Tower.cpp" />
     <ClCompile Include="src\BuildMenu.cpp" />
     <ClCompile Include="src\Components\Button.cpp" />
     <ClCompile Include="src\Components\LifeBar.cpp" />
     <ClCompile Include="src\Components\LifeBarRenderer.cpp" />
     <ClInclude Include="include\BuildMenu.h" />
+    <ClInclude Include="include\Components\Bullet.h" />
     <ClInclude Include="include\Components\Button.h" />
     <ClInclude Include="include\Components\Enemy.h" />
     <ClInclude Include="include\Components\LifeBar.h" />

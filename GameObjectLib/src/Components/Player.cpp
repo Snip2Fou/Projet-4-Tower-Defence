@@ -117,16 +117,19 @@ void Player::CheckBuildTower(std::vector<GameObject*>* gameObjects) {
 		Tower* tower = gameObject->CreateComponent<Tower>();
 		if (choosen_tower->getComponent<Button>()->type == "ButtonTower1") {
 			tower->SetType(TowerType::ArcherType);
-			tower->SetDamage(10);
-			tower->SetRange(20);
+			tower->SetDamage(5);
+			tower->SetRange(150);
+			tower->SetCooldown(sf::seconds(0.5));
 		}else if (choosen_tower->getComponent<Button>()->type == "ButtonTower2") {
 			tower->SetType(TowerType::MageType);
-			tower->SetDamage(15);
-			tower->SetRange(15);
+			tower->SetDamage(10);
+			tower->SetRange(125);
+			tower->SetCooldown(sf::seconds(0.75));
 		}else if (choosen_tower->getComponent<Button>()->type == "ButtonTower3") {
 			tower->SetType(TowerType::BomberType);
-			tower->SetDamage(20);
-			tower->SetRange(10);
+			tower->SetDamage(15);
+			tower->SetRange(100);
+			tower->SetCooldown(sf::seconds(1));
 		}
 
 		ShapeRenderer* shape_renderer = gameObject->CreateComponent<ShapeRenderer>();

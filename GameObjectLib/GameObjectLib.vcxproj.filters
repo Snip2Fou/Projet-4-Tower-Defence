@@ -17,6 +17,7 @@
     <ClCompile Include="src\Components\TowerSpot.cpp" />
     <ClCompile Include="src\BuildMenu.cpp" />
     <ClCompile Include="src\Components\Tower.cpp" />
+    <ClCompile Include="src\Components\Bullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\Button.h" />
@@ -39,5 +40,6 @@
     <ClInclude Include="include\BuildMenu.h" />
     <ClInclude Include="include\Components\Tower.h" />
     <ClInclude Include="include\Components\TowerType.h" />
+    <ClInclude Include="include\Components\Bullet.h" />
   </ItemGroup>
 </Project>
