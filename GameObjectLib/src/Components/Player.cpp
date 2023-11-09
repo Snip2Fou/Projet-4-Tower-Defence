@@ -31,7 +31,8 @@ Player::~Player()
 
 int Player::GetHp(){
 	std::string line;
-	std::string data;
+	std::string data = ""; 
+	int dataInt;
 	std::ifstream myfile("Model.txt");
 	if (myfile.is_open()) {
 		while (getline(myfile, line)) {
@@ -39,6 +40,7 @@ int Player::GetHp(){
 			if (pos != std::string::npos) {
 				std::string data = line.substr(pos + 5);
 				std::cout << "Data after Life: " << data << std::endl;
+				dataInt = stoi(data);
 			}
 		}
 		myfile.close();
@@ -46,7 +48,7 @@ int Player::GetHp(){
 	else {
 		std::cout << "Unable to open file" << std::endl;
 	}
-	return std::stoi(data);
+	return dataInt;
 }
 
 void Player::SetHp(int new_hp) 
