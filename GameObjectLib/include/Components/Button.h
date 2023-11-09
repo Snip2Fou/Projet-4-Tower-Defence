@@ -66,6 +66,7 @@ public:
 	Maths::Vector2<float> position = Maths::Vector2<float>(0, 0);
 
 	bool is_selected = false;
+	bool is_activate = true;
 
 	GameObject* createButtonObj(Scene* scene, std::string type);
 	void Update(float DeltaTimeMillisecondes, std::vector<GameObject*>* gameObject) override;

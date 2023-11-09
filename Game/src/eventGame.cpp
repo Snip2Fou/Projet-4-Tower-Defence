@@ -72,18 +72,20 @@ bool EventFunctionsGame::eventCheckClickButton(sf::Vector2i mousePosition, sf::E
 	{
 		std::string response = eventClickButton(buttonCheck, mousePosition);
 		if (response == "Spot") {
-			if (buttonCheck->getComponent<Button>()->is_selected) {
-				buttonCheck->getComponent<Button>()->is_selected = false;
-				actor->getComponent<Player>()->SetChoosenSpotToNullPtr();
-				response = "";
-			}
-			else {
-				if (actor->getComponent<Player>()->GetChoosenSpot() != nullptr) {
-					actor->getComponent<Player>()->GetChoosenSpot()->getComponent<Button>()->is_selected = false;
-					eventChangeColorButton(actor->getComponent<Player>()->GetChoosenSpot(), actor->getComponent<Player>()->GetChoosenSpot()->getComponent<Button>()->colorNothing);
+			if (buttonCheck->getComponent<Button>()->is_activate) {
+				if (buttonCheck->getComponent<Button>()->is_selected) {
+					buttonCheck->getComponent<Button>()->is_selected = false;
+					actor->getComponent<Player>()->SetChoosenSpotToNullPtr();
+					response = "";
 				}
-				buttonCheck->getComponent<Button>()->is_selected = true;
-				actor->getComponent<Player>()->SetChoosenSpot(buttonCheck);
+				else {
+					if (actor->getComponent<Player>()->GetChoosenSpot() != nullptr) {
+						actor->getComponent<Player>()->GetChoosenSpot()->getComponent<Button>()->is_selected = false;
+						eventChangeColorButton(actor->getComponent<Player>()->GetChoosenSpot(), actor->getComponent<Player>()->GetChoosenSpot()->getComponent<Button>()->colorNothing);
+					}
+					buttonCheck->getComponent<Button>()->is_selected = true;
+					actor->getComponent<Player>()->SetChoosenSpot(buttonCheck);
+				}
 			}
 		}else if (response == "ButtonTower1" || response == "ButtonTower2" || response == "ButtonTower3") {
 			if (buttonCheck->getComponent<Button>()->is_selected) {

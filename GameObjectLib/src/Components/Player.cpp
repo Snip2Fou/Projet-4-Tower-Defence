@@ -110,6 +110,7 @@ void Player::CheckBuildTower(std::vector<GameObject*>* gameObjects) {
 		choosen_tower->getComponent<Button>()->color = choosen_tower->getComponent<Button>()->colorNothing;
 		choosen_tower->getComponent<ShapeRenderer>()->SetColor(choosen_tower->getComponent<Button>()->color);
 		choosen_spot->getComponent<Button>()->is_selected = false;
+		choosen_spot->getComponent<Button>()->is_activate = false;
 		choosen_spot->getComponent<Button>()->color = choosen_tower->getComponent<Button>()->colorNothing;
 		choosen_spot->getComponent<ShapeRenderer>()->SetColor(choosen_spot->getComponent<Button>()->color);
 		choosen_spot = nullptr;
