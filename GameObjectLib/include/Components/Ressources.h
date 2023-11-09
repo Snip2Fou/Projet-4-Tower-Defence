@@ -14,6 +14,6 @@ public:
 
 private:
 	std::string name;
-	float nombre = 0;
+	float nombre = 1000;
 	int type = 0;
 };

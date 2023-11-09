@@ -130,6 +130,13 @@ bool EventFunctionsGame::eventCheckClickButtonRight(sf::Vector2i mousePosition, 
 
 		if (response == "Spot") {
 			if (!buttonCheck->getComponent<Button>()->is_activate) {
+				if (buttonCheck->getComponent<Button>()->target->getComponent<Tower>()->GetType() == TowerType::ArcherType) {
+					actor->getComponent<Player>()->GetRessource1()->getComponent<Ressources>()->SetNombre(600);
+				}else if (buttonCheck->getComponent<Button>()->target->getComponent<Tower>()->GetType() == TowerType::MageType) {
+					actor->getComponent<Player>()->GetRessource1()->getComponent<Ressources>()->SetNombre(1500);
+				}else if (buttonCheck->getComponent<Button>()->target->getComponent<Tower>()->GetType() == TowerType::BomberType) {
+					actor->getComponent<Player>()->GetRessource1()->getComponent<Ressources>()->SetNombre(3000);
+				}
 				buttonCheck->getComponent<Button>()->is_activate = true;
 				buttonCheck->getComponent<Button>()->is_selected = false;
 				buttonCheck->getComponent<Button>()->target->RemoveComponent(buttonCheck->getComponent<Tower>());

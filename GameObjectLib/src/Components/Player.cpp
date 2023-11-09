@@ -110,44 +110,52 @@ void Player::Update(float deltaTimeMillisecondes, std::vector<GameObject*>* game
 };
 
 void Player::CheckBuildTower(std::vector<GameObject*>* gameObjects) {
-	if (choosen_spot != nullptr && choosen_tower != nullptr) {
-		std::cout << "rr" << std::endl;
-		auto gameObject = new GameObject();
-		gameObject->SetName(ObjectName::TowerName);
-		gameObject->SetPosition(choosen_spot->GetPosition());
-		gameObjects->push_back(gameObject);
-		
-		Tower* tower = gameObject->CreateComponent<Tower>();
-		if (choosen_tower->getComponent<Button>()->type == "ButtonTower1") {
-			tower->SetType(TowerType::ArcherType);
-			tower->SetDamage(5);
-			tower->SetRange(150);
-			tower->SetCooldown(sf::seconds(0.5));
-		}else if (choosen_tower->getComponent<Button>()->type == "ButtonTower2") {
-			tower->SetType(TowerType::MageType);
-			tower->SetDamage(10);
-			tower->SetRange(125);
-			tower->SetCooldown(sf::seconds(0.75));
-		}else if (choosen_tower->getComponent<Button>()->type == "ButtonTower3") {
-			tower->SetType(TowerType::BomberType);
-			tower->SetDamage(15);
-			tower->SetRange(100);
-			tower->SetCooldown(sf::seconds(1));
+	if (choosen_spot != nullptr && choosen_tower != nullptr ) {
+		if ((choosen_tower->getComponent<Button>()->type == "ButtonTower1" && ressource1->getComponent<Ressources>()->GetNombre() >= 1200)
+			|| (choosen_tower->getComponent<Button>()->type == "ButtonTower2" && ressource1->getComponent<Ressources>()->GetNombre() >= 3000)
+			|| (choosen_tower->getComponent<Button>()->type == "ButtonTower3" && ressource1->getComponent<Ressources>()->GetNombre() >= 5000)) {
+			auto gameObject = new GameObject();
+			gameObject->SetName(ObjectName::TowerName);
+			gameObject->SetPosition(choosen_spot->GetPosition());
+			gameObjects->push_back(gameObject);
+
+			Tower* tower = gameObject->CreateComponent<Tower>();
+			if (choosen_tower->getComponent<Button>()->type == "ButtonTower1") {
+				tower->SetType(TowerType::ArcherType);
+				tower->SetDamage(5);
+				tower->SetRange(150);
+				tower->SetCooldown(sf::seconds(0.5));
+				ressource1->getComponent<Ressources>()->SetNombre(-1200);
+			}
+			else if (choosen_tower->getComponent<Button>()->type == "ButtonTower2") {
+				tower->SetType(TowerType::MageType);
+				tower->SetDamage(10);
+				tower->SetRange(125);
+				tower->SetCooldown(sf::seconds(0.75));
+				ressource1->getComponent<Ressources>()->SetNombre(-3000);
+			}
+			else if (choosen_tower->getComponent<Button>()->type == "ButtonTower3") {
+				tower->SetType(TowerType::BomberType);
+				tower->SetDamage(15);
+				tower->SetRange(100);
+				tower->SetCooldown(sf::seconds(1));
+				ressource1->getComponent<Ressources>()->SetNombre(-5000);
+			}
+
+			ShapeRenderer* shape_renderer = gameObject->CreateComponent<ShapeRenderer>();
+			shape_renderer->SetSize(choosen_spot->getComponent<Button>()->Size);
+
+			towers.push_back(gameObject);
+			choosen_tower->getComponent<Button>()->is_selected = false;
+			choosen_tower->getComponent<Button>()->color = choosen_tower->getComponent<Button>()->colorNothing;
+			choosen_tower->getComponent<ShapeRenderer>()->SetColor(choosen_tower->getComponent<Button>()->color);
+			choosen_spot->getComponent<Button>()->is_selected = false;
+			choosen_spot->getComponent<Button>()->is_activate = false;
+			choosen_spot->getComponent<Button>()->color = choosen_tower->getComponent<Button>()->colorNothing;
+			choosen_spot->getComponent<ShapeRenderer>()->SetColor(choosen_spot->getComponent<Button>()->color);
+			choosen_spot->getComponent<Button>()->target = gameObject;
+			choosen_spot = nullptr;
+			choosen_tower = nullptr;
 		}
-
-		ShapeRenderer* shape_renderer = gameObject->CreateComponent<ShapeRenderer>();
-		shape_renderer->SetSize(choosen_spot->getComponent<Button>()->Size);
-
-		towers.push_back(gameObject);
-		choosen_tower->getComponent<Button>()->is_selected = false;
-		choosen_tower->getComponent<Button>()->color = choosen_tower->getComponent<Button>()->colorNothing;
-		choosen_tower->getComponent<ShapeRenderer>()->SetColor(choosen_tower->getComponent<Button>()->color);
-		choosen_spot->getComponent<Button>()->is_selected = false;
-		choosen_spot->getComponent<Button>()->is_activate = false;
-		choosen_spot->getComponent<Button>()->color = choosen_tower->getComponent<Button>()->colorNothing;
-		choosen_spot->getComponent<ShapeRenderer>()->SetColor(choosen_spot->getComponent<Button>()->color);
-		choosen_spot->getComponent<Button>()->target = gameObject;
-		choosen_spot = nullptr;
-		choosen_tower = nullptr;
 	}
 }
