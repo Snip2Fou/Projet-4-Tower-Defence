@@ -1,19 +1,19 @@
 #include "Components/TowerSpot.h"
 #include "Scene.h"
 
-GameObject* TowerSpot::createButtonObj(Scene* scene, std::string type)
+GameObject* TowerSpot::createButtonObj(Scene* scene, std::string type, int num)
 {
-	if (type == "1")
+	if (num == 1)
 	{
 		GameObject* button = scene->CreateButton(name, position1, color1, color1Hover, color1Click, Size, type);
 		return button;
 	}
-	else if (type == "2")
+	else if (num == 2)
 	{
 		GameObject* button = scene->CreateButton(name, position2, color2, color2Hover, color2Click, Size, type);
 		return button;
 	}
-	else if (type == "3")
+	else if (num == 3)
 	{
 		GameObject* button = scene->CreateButton(name, position3, color3, color3Hover, color3Click, Size, type);
 		return button;

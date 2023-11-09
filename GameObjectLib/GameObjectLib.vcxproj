@@ -19,9 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\Tower.cpp" />
+    <ClCompile Include="src\BuildMenu.cpp" />
     <ClCompile Include="src\Components\Button.cpp" />
     <ClCompile Include="src\Components\LifeBar.cpp" />
     <ClCompile Include="src\Components\LifeBarRenderer.cpp" />
+    <ClInclude Include="include\BuildMenu.h" />
     <ClInclude Include="include\Components\Button.h" />
     <ClInclude Include="include\Components\Enemy.h" />
     <ClInclude Include="include\Components\LifeBar.h" />
@@ -31,6 +34,7 @@
     <ClInclude Include="include\Components\SquareCollider.h" />
     <ClInclude Include="include\Components\Component.h" />
     <ClInclude Include="include\Components\TowerSpot.h" />
+    <ClInclude Include="include\Components\TowerType.h" />
     <ClInclude Include="include\EnemySpawn.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Components\Player.h" />
@@ -40,6 +44,7 @@
     <ClCompile Include="src\Components\Enemy.cpp" />
     <ClCompile Include="src\Components\ShapeRenderer.cpp" />
     <ClInclude Include="include\WindowConfig.h" />
+    <ClInclude Include="include\Components\Tower.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\Player.cpp" />

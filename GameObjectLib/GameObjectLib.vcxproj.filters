@@ -15,6 +15,8 @@
     <ClCompile Include="src\Components\LifeBar.cpp" />
     <ClCompile Include="src\Components\LifeBarRenderer.cpp" />
     <ClCompile Include="src\Components\TowerSpot.cpp" />
+    <ClCompile Include="src\BuildMenu.cpp" />
+    <ClCompile Include="src\Components\Tower.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\Button.h" />
@@ -34,5 +36,8 @@
     <ClInclude Include="include\Components\SpriteRenderer.h" />
     <ClInclude Include="include\Maths\Vector2.inl" />
     <ClInclude Include="include\Components\TowerSpot.h" />
+    <ClInclude Include="include\BuildMenu.h" />
+    <ClInclude Include="include\Components\Tower.h" />
+    <ClInclude Include="include\Components\TowerType.h" />
   </ItemGroup>
 </Project>
