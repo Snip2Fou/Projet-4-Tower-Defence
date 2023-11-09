@@ -39,6 +39,6 @@ public:
 	sf::Vector2f Size = sf::Vector2f(longueur, hauteur);
 	Maths::Vector2<float> position = Maths::Vector2<float>(0, 0);
 
-	GameObject* createButtonObj(Scene* scene, std::string type);
+	GameObject* createButtonObj(Scene* scene, std::string type, int num);
 	void Update(float DeltaTimeMillisecondes, std::vector<GameObject*>* gameObject) override;
 };

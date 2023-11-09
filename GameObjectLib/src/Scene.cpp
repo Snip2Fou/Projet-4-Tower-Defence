@@ -19,14 +19,14 @@
 
 void Scene::Update(float deltaTimeMillisecondes)
 {
-	for (GameObject* const& gameObject : gameObjects)
+	/*for (GameObject* const& gameObject : gameObjects)
 	{
 		gameObject->Update(deltaTimeMillisecondes, &gameObjects);
+	}*/
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		gameObjects[i]->Update(deltaTimeMillisecondes, &gameObjects);
 	}
-	//for (int i = 0; i < gameObjects.size(); i++)
-	//{
-	//	gameObjects[i]->Update(deltaTimeMillisecondes, &gameObjects);
-	//}
 }
 
 void Scene::Render(sf::RenderWindow* _window)

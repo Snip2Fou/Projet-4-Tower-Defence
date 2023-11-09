@@ -29,6 +29,26 @@ GameObject* Button::createButtonObj(Scene* scene, std::string type)
 		GameObject* button = scene->CreateButton(name, positionPause, colorPause, colorPauseHover, colorPauseClick, sizePause, type);
 		return button;
 	}
+	else if (type == "BuildMenu")
+	{
+		GameObject* button = scene->CreateButton(name, positionBuildMenu, colorBuildMenu, colorBuildMenuHover, colorBuildMenuClick, sizeBuildMenu, type);
+		return button;
+	}
+	else if (type == "ButtonTower1")
+	{
+		GameObject* button = scene->CreateButton(name, positionButtonTower1, colorButtonTower, colorButtonTowerHover, colorButtonTowerClick, sizeButtonTower, type);
+		return button;
+	}
+	else if (type == "ButtonTower2")
+	{
+		GameObject* button = scene->CreateButton(name, positionButtonTower2, colorButtonTower, colorButtonTowerHover, colorButtonTowerClick, sizeButtonTower, type);
+		return button;
+	}
+	else if (type == "ButtonTower3")
+	{
+		GameObject* button = scene->CreateButton(name, positionButtonTower3, colorButtonTower, colorButtonTowerHover, colorButtonTowerClick, sizeButtonTower, type);
+		return button;
+	}
 	else
 	{
 		GameObject* buttonBroken = nullptr;
@@ -37,5 +57,4 @@ GameObject* Button::createButtonObj(Scene* scene, std::string type)
 }
 
 void Button::Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) {
-
 }

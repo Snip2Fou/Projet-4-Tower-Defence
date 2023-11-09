@@ -65,17 +65,103 @@ void EventFunctionsGame::eventHoverButton(GameObject* buttonCheck, sf::Vector2i 
 
 }
 
-bool EventFunctionsGame::eventCheckClickButton(sf::Vector2i mousePosition, sf::Event event, sf::RenderWindow* window) {
+bool EventFunctionsGame::eventCheckClickButton(sf::Vector2i mousePosition, sf::Event event, sf::RenderWindow* window, std::string buttontype, GameObject* actor) {
 	std::vector<std::string> returnWhat;
 
 	for (GameObject* buttonCheck : buttonList)
 	{
-		returnWhat.push_back(eventClickButton(buttonCheck, mousePosition));
+		std::string response = eventClickButton(buttonCheck, mousePosition);
+		if (response == "Spot") {
+			if (buttonCheck->getComponent<Button>()->is_activate) {
+				if (buttonCheck->getComponent<Button>()->is_selected) {
+					buttonCheck->getComponent<Button>()->is_selected = false;
+					actor->getComponent<Player>()->SetChoosenSpotToNullPtr();
+					response = "";
+				}
+				else {
+					if (actor->getComponent<Player>()->GetChoosenSpot() != nullptr) {
+						actor->getComponent<Player>()->GetChoosenSpot()->getComponent<Button>()->is_selected = false;
+						eventChangeColorButton(actor->getComponent<Player>()->GetChoosenSpot(), actor->getComponent<Player>()->GetChoosenSpot()->getComponent<Button>()->colorNothing);
+					}
+					buttonCheck->getComponent<Button>()->is_selected = true;
+					actor->getComponent<Player>()->SetChoosenSpot(buttonCheck);
+				}
+			}
+		}else if (response == "ButtonTower1" || response == "ButtonTower2" || response == "ButtonTower3") {
+			if (buttonCheck->getComponent<Button>()->is_selected) {
+				buttonCheck->getComponent<Button>()->is_selected = false;
+				actor->getComponent<Player>()->SetChoosenTowerToNullPtr();
+			}
+			else {
+				if (actor->getComponent<Player>()->GetChoosenTower() != nullptr) {
+					actor->getComponent<Player>()->GetChoosenTower()->getComponent<Button>()->is_selected = false;
+					eventChangeColorButton(actor->getComponent<Player>()->GetChoosenTower(), actor->getComponent<Player>()->GetChoosenTower()->getComponent<Button>()->colorNothing);
+				}
+				buttonCheck->getComponent<Button>()->is_selected = true;
+				actor->getComponent<Player>()->SetChoosenTower(buttonCheck);
+			}
+		}
+		else if(response != "") {
+			if (buttonCheck->getComponent<Button>()->is_selected) {
+				buttonCheck->getComponent<Button>()->is_selected = false;
+			}
+			else {
+				buttonCheck->getComponent<Button>()->is_selected = true;
+			}
+		}
+		returnWhat.push_back(response);
 	}
 
 	for (std::string returnWhatBool : returnWhat)
 	{
-		if (returnWhatBool == "Pause") {
+		if (returnWhatBool == buttontype) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool EventFunctionsGame::eventCheckClickButtonRight(sf::Vector2i mousePosition, sf::Event event, sf::RenderWindow* window, std::string buttontype, GameObject* actor, Scene* scene) {
+	std::vector<std::string> returnWhat;
+
+	for (GameObject* buttonCheck : buttonList)
+	{
+		std::string response = eventClickButton(buttonCheck, mousePosition);
+
+		if (response == "Spot") {
+			if (!buttonCheck->getComponent<Button>()->is_activate) {
+				buttonCheck->getComponent<Button>()->is_activate = true;
+				buttonCheck->getComponent<Button>()->is_selected = false;
+				buttonCheck->getComponent<Button>()->target->RemoveComponent(buttonCheck->getComponent<Tower>());
+				buttonCheck->getComponent<Button>()->target->RemoveComponent(buttonCheck->getComponent<ShapeRenderer>());
+				for (auto it =  actor->getComponent<Player>()->GetTowers()->begin(); it != actor->getComponent<Player>()->GetTowers()->end(); ++it)
+				{
+					if (*it == buttonCheck->getComponent<Button>()->target)
+					{
+						actor->getComponent<Player>()->GetTowers()->erase(it);
+						break;
+					}
+				}
+				for (auto it = scene->GetGameObjects()->begin(); it != scene->GetGameObjects()->end(); ++it)
+				{
+					if (*it == buttonCheck->getComponent<Button>()->target)
+					{
+						delete buttonCheck->getComponent<Button>()->target;
+						scene->GetGameObjects()->erase(it);
+						return true;
+					}
+				}
+				buttonCheck->getComponent<Button>()->target = nullptr;
+				eventChangeColorButton(buttonCheck, buttonCheck->getComponent<Button>()->colorNothing);
+			}
+		}
+
+		returnWhat.push_back(response);
+	}
+
+	for (std::string returnWhatBool : returnWhat)
+	{
+		if (returnWhatBool == buttontype) {
 			return true;
 		}
 	}
@@ -87,7 +173,12 @@ std::string EventFunctionsGame::eventClickButton(GameObject* buttonCheck, sf::Ve
 
 	if (eventCollisionMouseButton(buttonCheck, mousePosition) == true)
 	{
-		eventChangeColorButton(buttonCheck, buttonCheckButton->colorClick);
+		if (buttonCheck->getComponent<Button>()->is_selected) {
+			eventChangeColorButton(buttonCheck, buttonCheck->getComponent<Button>()->colorNothing);
+		}
+		else {
+			eventChangeColorButton(buttonCheck, buttonCheck->getComponent<Button>()->colorClick);
+		}
 		return buttonCheckButton->type;
 	}
 	return "";
@@ -132,27 +223,26 @@ void EventFunctionsGame::angleWrite(float AngleMouseHor) {
 	}
 }
 
-void EventFunctionsGame::eventMouseRight(sf::Event event, GameObject* actor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin) {
+void EventFunctionsGame::eventMouseRight(sf::Event event, GameObject* actor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, std::string buttontype, Scene* scene) {
 	if (event.mouseButton.button == sf::Mouse::Right) {
 
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
 		
+		eventCheckClickButtonRight(mousePosition, event, window, buttontype, actor, scene);
 
 	}
 }
 
-bool EventFunctionsGame::eventMouseLeft(sf::Event event, GameObject* actor, sf::RenderWindow* window, Scene* scene, float deltaTimeMilliseconds, sf::Vector2i mousePosition)
+bool EventFunctionsGame::eventMouseLeft(sf::Event event, GameObject* actor, sf::RenderWindow* window, Scene* scene, float deltaTimeMilliseconds, sf::Vector2i mousePosition, std::string buttontype)
 {
 	if (event.mouseButton.button == sf::Mouse::Left)
 	{
-		if (eventCheckClickButton(mousePosition, event, window))
+		if (eventCheckClickButton(mousePosition, event, window, buttontype, actor))
 		{
 			return true;
 		}
 
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
-
-
 		
 		return false;
 	}
@@ -160,7 +250,7 @@ bool EventFunctionsGame::eventMouseLeft(sf::Event event, GameObject* actor, sf::
 }
 
 
-bool EventFunctionsGame::eventMousePressed(sf::Event event, GameObject* actor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, Scene* scene, float deltaTimeMilliseconds, sf::Vector2i mousePosition) {
+bool EventFunctionsGame::eventMousePressed(sf::Event event, GameObject* actor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, Scene* scene, float deltaTimeMilliseconds, sf::Vector2i mousePosition, std::string buttontype) {
 	//for (Input* input : inputList)
 	//{
 	//	if (input->inputType == Input::Mouse && input->mouseButton == event.mouseButton.button)
@@ -168,8 +258,8 @@ bool EventFunctionsGame::eventMousePressed(sf::Event event, GameObject* actor, s
 	//		input->inputBool = true;
 	//	}
 	//}
-	eventMouseRight(event, actor, window, HorizontalOrigin, VerticalOrigin);
-	return eventMouseLeft(event, actor, window, scene, deltaTimeMilliseconds, mousePosition);
+	eventMouseRight(event, actor, window, HorizontalOrigin, VerticalOrigin, buttontype, scene);
+	return eventMouseLeft(event, actor, window, scene, deltaTimeMilliseconds, mousePosition, buttontype);
 }
 
 void EventFunctionsGame::eventMouseRelease(sf::Event event)  {
@@ -213,7 +303,7 @@ void EventFunctionsGame::PlaySound()
 
 
 
-bool EventFunctionsGame::loopEvent(GameObject* actor, float sizeActor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, Scene* scene, float deltaTimeMilliseconds, bool *pauseOn) {
+bool EventFunctionsGame::loopEvent(GameObject* actor, float sizeActor, sf::RenderWindow* window, const Maths::Vector2f HorizontalOrigin, const Maths::Vector2f VerticalOrigin, Scene* scene, float deltaTimeMilliseconds, bool *pauseOn, bool *buildMenuvisible){
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
 	/*eventHoverButton(buttonList[0], mousePosition);*/
 
@@ -236,14 +326,25 @@ bool EventFunctionsGame::loopEvent(GameObject* actor, float sizeActor, sf::Rende
 		}
 
 		else if (event.type == sf::Event::MouseButtonPressed) {
-			*pauseOn = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition);
+			*pauseOn = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition, "Pause");
+			bool buttonOpenBuildMenu = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition, "BuildMenu");
+			bool spotOpenBuildMenu = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition, "Spot");
+			std::cout << spotOpenBuildMenu << std::endl;
+			if (*buildMenuvisible == false && (buttonOpenBuildMenu == true || spotOpenBuildMenu== true)) {
+				*buildMenuvisible = true;
+			}
+			else if (*buildMenuvisible == true && spotOpenBuildMenu == true) {
+				*buildMenuvisible = true;
+			}
+			else if (*buildMenuvisible == true && (buttonOpenBuildMenu == true || spotOpenBuildMenu == true)) {
+				*buildMenuvisible = false;
+			}
 		}
 
 		else if (event.type == sf::Event::MouseButtonReleased) {
 			eventMouseRelease(event);
 		}
 	}
-
 
 	// Parcourir les entrées du souris
 	eventExecute(actor, sizeActor, window, scene->GetGameObjects());
