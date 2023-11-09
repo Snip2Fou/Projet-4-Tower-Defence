@@ -7,7 +7,6 @@
 #include "Components/SpriteRenderer.h"
 #include "GameObject.h"
 
-int Enemy::enemyKill = 0;
 
 Enemy::Enemy()
 {
@@ -35,25 +34,25 @@ void Enemy::Move(std::vector<GameObject*>* gameObjects) {
 		move_vector *= speed / 10;
 		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
 	}
-	else if (GetOwner()->GetPosition().GetX() == 200 && GetOwner()->GetPosition().GetY() > 80) {
+	else if (GetOwner()->GetPosition().GetX() >= 200 && GetOwner()->GetPosition().GetX() <= 220 && GetOwner()->GetPosition().GetY() > 80) {
 		Maths::Vector2f move_vector(0, -1);
 		move_vector = move_vector.Normalize();
 		move_vector *= speed / 10;
 		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
 	}
-	else if (GetOwner()->GetPosition().GetY() == 80 && GetOwner()->GetPosition().GetX() < 500) {
+	else if (GetOwner()->GetPosition().GetY() <= 80 && GetOwner()->GetPosition().GetY() <= 100 && GetOwner()->GetPosition().GetX() < 500) {
 		Maths::Vector2f move_vector(1, 0);
 		move_vector = move_vector.Normalize();
 		move_vector *= speed / 10;
 		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
 	}
-	else if (GetOwner()->GetPosition().GetX() == 500 && GetOwner()->GetPosition().GetY() < 650) {
+	else if (GetOwner()->GetPosition().GetX() >= 500 && GetOwner()->GetPosition().GetX() <= 520 && GetOwner()->GetPosition().GetY() < 650) {
 		Maths::Vector2f move_vector(0, 1);
 		move_vector = move_vector.Normalize();
 		move_vector *= speed / 10;
 		GetOwner()->SetPosition(GetOwner()->GetPosition() + move_vector);
 	}
-	else if (GetOwner()->GetPosition().GetY() == 650 && GetOwner()->GetPosition().GetX() < 900) {
+	else if (GetOwner()->GetPosition().GetY() >= 650 && GetOwner()->GetPosition().GetY() <= 670 && GetOwner()->GetPosition().GetX() < 900) {
 		Maths::Vector2f move_vector(1, 0);
 		move_vector = move_vector.Normalize();
 		move_vector *= speed / 10;
@@ -73,28 +72,12 @@ void Enemy::StopSound()
 	soundEnemy->stop();
 }
 
-void Enemy::ResetScore(int new_score)
-{
-	enemyKill = new_score; 
-}
-
 bool Enemy::isDead(std::vector<GameObject*>* gameObjects)
 {
 	if (hp <= 0)
 	{
-
-		GetOwner()->RemoveComponent(GetOwner()->getComponent<Enemy>());
-		GetOwner()->RemoveComponent(GetOwner()->getComponent<SpriteRenderer>());
-		GetOwner()->RemoveComponent(GetOwner()->getComponent<SquareCollider>());
-		for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
-		{
-			if (*it == GetOwner())
-			{
-				delete GetOwner();
-				gameObjects->erase(it);
-				return true;
-			}
-		}
+		Delete(gameObjects);
+		return true;
 	}
 	else
 	{
@@ -105,6 +88,34 @@ bool Enemy::isDead(std::vector<GameObject*>* gameObjects)
 
 void Enemy::Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) {
 	Move(gameObjects);
-	isDead(gameObjects);
+	std::vector<GameObject*> gameObjects2 = *gameObjects;
+	if (GetOwner()->GetPosition().GetX() > 800) {
+		for (int i = 0; i < gameObjects2.size(); i++) {
+			if (gameObjects2[i]->GetName() == ObjectName::PlayerName) {
+				gameObjects2[i]->getComponent<Player>()->SetHp(gameObjects2[i]->getComponent<Player>()->GetHp() - GetDamage());
+				std::cout << gameObjects2[i]->getComponent<Player>()->GetHp() << std::endl;
+				break;
+			}
+		}
+		Delete(gameObjects);
+	}
+	else {
+		isDead(gameObjects);
+	}
+}
+
+void Enemy::Delete(std::vector<GameObject*>* gameObjects) {
+	GetOwner()->RemoveComponent(GetOwner()->getComponent<Enemy>());
+	GetOwner()->RemoveComponent(GetOwner()->getComponent<SpriteRenderer>());
+	GetOwner()->RemoveComponent(GetOwner()->getComponent<SquareCollider>());
+	for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
+	{
+		if (*it == GetOwner())
+		{
+			delete GetOwner();
+			gameObjects->erase(it);
+			break;
+		}
+	}
 }
 

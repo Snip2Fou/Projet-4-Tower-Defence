@@ -54,7 +54,7 @@ void Tower::Attack(std::vector<GameObject*>* gameObjects) {
 			squareCollider->SetHeight(10);
 
 			Bullet* bullet = gameObject->CreateComponent<Bullet>();
-			bullet->SetVectorDirector(vector_director.Normalize());
+			bullet->SetVectorDirector(vector_director.Normalize() * 2);
 			bullet->SetTower(GetOwner());
 
 			clock.restart();

@@ -20,7 +20,7 @@ public:
 	void Move(std::vector<GameObject*>* gameObjects);
 	
 	bool isDead(std::vector<GameObject*>* gameObjects);
-	void ResetScore(int new_score);
+	void Delete(std::vector<GameObject*>* gameObjects);
 
 	void Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) override;
 
@@ -33,6 +33,4 @@ private:
 	sf::Clock clock;
 	sf::Time attack_cooldown = sf::seconds(0.3);
 	sf::Time elapsedTime;
-	int score = 0;
-	static int enemyKill;
 };
