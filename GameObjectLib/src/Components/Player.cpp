@@ -36,7 +36,7 @@ Player::~Player()
 int Player::GetHp(){
 	std::string line;
 	std::string data = ""; 
-	int dataInt;
+	int dataInt = 0;
 	std::ifstream myfile("Model.txt");
 	if (myfile.is_open()) {
 		while (getline(myfile, line)) {
