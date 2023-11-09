@@ -1,6 +1,6 @@
 #include "Components/Player.h"
 #include "GameObject.h"
-
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Components/SpriteRenderer.h"
@@ -31,6 +31,27 @@ Player::~Player()
 	delete sound;
 	sound = nullptr;
 	soundBuffer = nullptr;
+}
+
+int Player::GetHp(){
+	std::string line;
+	std::string data = ""; 
+	int dataInt;
+	std::ifstream myfile("Model.txt");
+	if (myfile.is_open()) {
+		while (getline(myfile, line)) {
+			size_t pos = line.find("Life");
+			if (pos != std::string::npos) {
+				std::string data = line.substr(pos + 5);
+				dataInt = stoi(data);
+			}
+		}
+		myfile.close();
+	}
+	else {
+		std::cout << "Unable to open file" << std::endl;
+	}
+	return dataInt;
 }
 
 void Player::SetHp(int new_hp) 

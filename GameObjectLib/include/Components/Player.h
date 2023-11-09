@@ -23,7 +23,9 @@ public:
 	Player();
 	~Player();
   
-	int GetHp() {return hp;}
+	int Vague = 1;
+
+	int GetHp();
 	void SetHp(int new_hp);
 
 	GameObject* GetChoosenSpot() { return choosen_spot; }

@@ -17,6 +17,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 	EventFunctionPause eventFunctionPause;
 	EnemySpawn enemySpawn;
 
+
 	// Bouton Pause
 	Button buttonClass;
 	GameObject* buttonPause = buttonClass.createButtonObj(&scene, "Pause");
@@ -90,6 +91,7 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 		if (pauseOn == false)
 		{
 			sceneOn = eventFunction.loopEvent(player, 50, window, game.HorizontalOrigin, game.VerticalOrigin, &scene, deltaTimeMilliseconds, &pauseOn, &build_menu.isvisible); //Enlever pour pause
+
 			time_for_enemy_spawn = enemySpawn.CheckIfIsTimeToEnemySpawn(&scene, time_for_enemy_spawn); //Enlever pour pause
 
 			scene.Update(deltaTimeMilliseconds); //Enlever pour pause

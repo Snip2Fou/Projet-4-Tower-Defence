@@ -5,7 +5,7 @@ int EventFunctionPause::loopEvent(sf::RenderWindow* window, bool* pauseOn) {
 	SceneMenu sceneMenu;
 
 	int temp = sceneMenu.LoopGame(window, pauseOn);
-	while (pauseOn)
+	while (*pauseOn)
 	{
 		if (temp == 1)
 		{

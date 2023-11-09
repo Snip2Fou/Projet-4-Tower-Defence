@@ -1,0 +1,7 @@
+Life 100
+Ennemi1 30 20 10
+Ennemi2 30 50 10
+Boss 30 10 10
+Archer 20 15 1
+Mage 15 20 2
+Bomber 10 30 3
