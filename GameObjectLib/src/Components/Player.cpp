@@ -10,7 +10,7 @@
 #include "Components/LifeBar.h"
 #include "Components/LifeBarRenderer.h"
 #include <cmath>
-
+#include "Components/Ressources.h"
 
 Player::Player()
 {
@@ -19,12 +19,18 @@ Player::Player()
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	sound = new sf::Sound;
+	ressource1 = new GameObject;
+	ressource2 = new GameObject;
 }
 
 Player::~Player()
 {
 	delete soundBuffer;
 	delete sound;
+	delete ressource1;
+	delete ressource2;
+	ressource1 = nullptr;
+	ressource2 = nullptr;
 	sound = nullptr;
 	soundBuffer = nullptr;
 }
@@ -75,20 +81,6 @@ void Player::StopSound()
 {
 	sound->setBuffer(*soundBuffer);
 	sound->stop();
-}
-
-void Player::SetRessource1(Ressources new_ressource)
-{
-	ressource1.SetName(new_ressource.GetName());
-	ressource1.SetType(new_ressource.GetType());
-	ressource1.SetNombre(new_ressource.GetNombre());
-}
-
-void Player::SetRessource2(Ressources new_ressource)
-{
-	ressource2.SetName(new_ressource.GetName());
-	ressource2.SetType(new_ressource.GetType());
-	ressource2.SetNombre(new_ressource.GetNombre());
 }
 
 void Player::Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) {

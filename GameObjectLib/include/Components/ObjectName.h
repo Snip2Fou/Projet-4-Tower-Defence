@@ -7,4 +7,5 @@ enum ObjectName
 	WallName,
 	ButtonName,
 	ShapeName,
+	RessourceName,
 };

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\Components\Ressources.h" />
+    <ClInclude Include="include\Components\Ressources.h" />
     <ClCompile Include="src\Components\Button.cpp" />
     <ClCompile Include="src\Components\LifeBar.cpp" />
     <ClCompile Include="src\Components\LifeBarRenderer.cpp" />

@@ -15,7 +15,6 @@
     <ClCompile Include="src\Components\LifeBar.cpp" />
     <ClCompile Include="src\Components\LifeBarRenderer.cpp" />
     <ClCompile Include="src\Components\TowerSpot.cpp" />
-    <ClCompile Include="include\Components\Ressources.h" />
     <ClCompile Include="src\Components\Ressources.cpp" />
     <ClCompile Include="src\Components\RessourcesRenderer.cpp" />
   </ItemGroup>
@@ -38,5 +37,6 @@
     <ClInclude Include="include\Maths\Vector2.inl" />
     <ClInclude Include="include\Components\TowerSpot.h" />
     <ClInclude Include="include\Components\RessourcesRenderer.h" />
+    <ClInclude Include="include\Components\Ressources.h" />
   </ItemGroup>
 </Project>

@@ -30,6 +30,8 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 	scene.SetTexture("texture_enemy2", "Assets/Image/GreenGrougrou.png");
 	scene.SetTexture("texture_life_bar", "Assets/Image/life_bar.png");
 	scene.SetTexture("texture_boss", "Assets/Image/thomasBoss.png");
+	scene.SetTexture("texture_ressource1", "Assets/Image/sac_or.png");
+	scene.SetTexture("texture_ressource2", "Assets/Image/buche-bois.png");
 
 	GameObject* player = scene.CreatePlayer(ObjectName::PlayerName, Maths::Vector2f(375, 5), 200);
 
@@ -67,10 +69,8 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 		sf::Time deltaTime = clock.restart();
 		float deltaTimeMilliseconds = deltaTime.asMilliseconds();
 
-		player->getComponent<Player>()->GetRessource1().SetNombre(1.f *deltaTimeMilliseconds / 15);
-		player->getComponent<Player>()->GetRessource2().SetNombre(1.f * deltaTimeMilliseconds / 20);
-		std::cout << "ressource  bois:" << player->getComponent<Player>()->GetRessource1().GetNombre() << std::endl;
-		std::cout << "ressource  Pierre:" << player->getComponent<Player>()->GetRessource2().GetNombre() << std::endl;
+		player->getComponent<Player>()->GetRessource1()->getComponent<Ressources>()->SetNombre(1 * deltaTimeMilliseconds / 15);
+		player->getComponent<Player>()->GetRessource2()->getComponent<Ressources>()->SetNombre(1 * deltaTimeMilliseconds / 17);
 		
 
 		if (pauseOn == false)
