@@ -4,9 +4,9 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
 #include <unordered_map>
+#include "Ressources.h"
 #include <iostream>
 #include "Tower.h"
-
 
 class Player : public Component
 {
@@ -15,6 +15,8 @@ private:
 	sf::SoundBuffer* soundBuffer;
 	sf::Sound* sound;
 	Maths::Vector2<float> position = Maths::Vector2f::Zero;
+	GameObject* ressource1 = nullptr;
+	GameObject* ressource2 = nullptr;
 	GameObject* choosen_spot = nullptr;
 	GameObject* choosen_tower = nullptr;
 	std::vector<GameObject*> towers;
@@ -22,10 +24,11 @@ private:
 public:
 	Player();
 	~Player();
+
+	int GetHp() { return hp; }
   
 	int Vague = 1;
 
-	int GetHp();
 	void SetHp(int new_hp);
 
 	GameObject* GetChoosenSpot() { return choosen_spot; }
@@ -42,6 +45,10 @@ public:
 	void Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) override;
 	bool isDead(std::vector<GameObject*>* gameObjects);
 	Maths::Vector2<float> GetPosition() const { return position; }
+	GameObject* GetRessource1() { return ressource1; }
+	GameObject* GetRessource2() { return ressource2; }
+	void SetRessources1(GameObject* new_ressources) { ressource1 = new_ressources; }
+	void SetRessources2(GameObject* new_ressources) { ressource2 = new_ressources; }
 
 	void CheckBuildTower(std::vector<GameObject*>* gameObjects);
 

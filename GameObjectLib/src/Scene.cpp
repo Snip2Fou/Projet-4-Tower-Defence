@@ -1,4 +1,4 @@
-#include "Scene.h"
+ #include "Scene.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <iostream>
@@ -7,14 +7,15 @@
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
 #include "Components/LifeBarRenderer.h"
-#include "Components/ObjectName.h"
+#include "Components/RessourcesRenderer.h"
 
 #include "Components/Enemy.h"
 #include "Components/Player.h"
 #include "Components/Button.h"
 #include "Components/LifeBar.h"
-
+#include "Components/ObjectName.h"
 #include "GameObject.h"
+
 
 void Scene::Update(float deltaTimeMillisecondes)
 {
@@ -76,6 +77,28 @@ GameObject* Scene::CreatePlayer(const ObjectName& name, const Maths::Vector2<flo
 	lifebar->SetHp(player->GetHp());
 	LifeBarRenderer* lifeBarRenderer = gameObject->CreateComponent<LifeBarRenderer>();
 	lifeBarRenderer->SetSprite(&texture["texture_life_bar"], 1, 1);
+
+	GameObject* gameObject2 = CreateGameObject(ObjectName::RessourceName);
+	gameObject2->SetPosition(Maths::Vector2f(10, 50));
+	Ressources* ressource1 = gameObject2->CreateComponent<Ressources>();
+	ressource1->SetName("Bois");
+	ressource1->SetType(1);
+
+	/*RessourcesRenderer* ressourceRenderer1 = gameObject2->CreateComponent<RessourcesRenderer>();
+	ressourceRenderer1->SetSprite(&texture["texture_ressource1"], 1, 1);*/
+
+	player->SetRessources1(gameObject2);
+
+
+	GameObject* gameObject3 = CreateGameObject(ObjectName::RessourceName);
+	gameObject3->SetPosition(Maths::Vector2f(10, 90));
+	Ressources* ressource2 = gameObject3->CreateComponent<Ressources>();
+	ressource2->SetName("Pierre");
+	ressource2->SetType(2);
+	
+	/*RessourcesRenderer* ressourceRenderer2 = player->GetRessource2()->CreateComponent<RessourcesRenderer>();
+	ressourceRenderer2->SetSprite(&texture["texture_ressource2"], 1, 1);*/
+	player->SetRessources2(gameObject3);
 
 	return gameObject;
 }

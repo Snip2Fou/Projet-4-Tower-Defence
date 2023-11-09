@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Components\Ressources.h" />
     <ClCompile Include="src\Components\Bullet.cpp" />
     <ClCompile Include="src\Components\Tower.cpp" />
     <ClCompile Include="src\BuildMenu.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="include\Components\LifeBar.h" />
     <ClInclude Include="include\Components\LifeBarRenderer.h" />
     <ClInclude Include="include\Components\ObjectName.h" />
+    <ClInclude Include="include\Components\RessourcesRenderer.h" />
     <ClInclude Include="include\Components\ShapeRenderer.h" />
     <ClInclude Include="include\Components\SquareCollider.h" />
     <ClInclude Include="include\Components\Component.h" />
@@ -44,6 +46,8 @@
     <ClInclude Include="include\Maths\Vector2.h" />
     <ClInclude Include="include\Components\SpriteRenderer.h" />
     <ClCompile Include="src\Components\Enemy.cpp" />
+    <ClCompile Include="src\Components\Ressources.cpp" />
+    <ClCompile Include="src\Components\RessourcesRenderer.cpp" />
     <ClCompile Include="src\Components\ShapeRenderer.cpp" />
     <ClInclude Include="include\WindowConfig.h" />
     <ClInclude Include="include\Components\Tower.h" />

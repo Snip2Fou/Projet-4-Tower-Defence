@@ -32,6 +32,7 @@ public:
 
 	GameObject* CreateWall(const ObjectName& name, const Maths::Vector2<float>& position);
 
+
 	int SetTexture(std::string nom_texture, std::string chemin_fichier);
 	void SetLevel(int new_level) { level = new_level; }
 

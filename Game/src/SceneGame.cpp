@@ -9,6 +9,7 @@
 #include "Button.h"
 #include "BuildMenu.h"
 
+
 int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 {
 	Game game;
@@ -31,6 +32,9 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 	scene.SetTexture("texture_enemy2", "Assets/Image/GreenGrougrou.png");
 	scene.SetTexture("texture_life_bar", "Assets/Image/life_bar.png");
 	scene.SetTexture("texture_boss", "Assets/Image/thomasBoss.png");
+	scene.SetTexture("texture_ressource1", "Assets/Image/sac_or.png");
+	scene.SetTexture("texture_ressource2", "Assets/Image/buche-bois.png");
+
 
 
 
@@ -87,6 +91,11 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 
 		sf::Time deltaTime = clock.restart();
 		float deltaTimeMilliseconds = deltaTime.asMilliseconds();
+
+		player->getComponent<Player>()->GetRessource1()->getComponent<Ressources>()->SetNombre(1 * deltaTimeMilliseconds / 15);
+		player->getComponent<Player>()->GetRessource2()->getComponent<Ressources>()->SetNombre(1 * deltaTimeMilliseconds / 17);
+		std::cout << "ressource or: " << player->getComponent<Player>()->GetRessource1()->getComponent<Ressources>()->GetNombre() << std::endl;
+		std::cout << "ressource bois: " << player->getComponent<Player>()->GetRessource2()->getComponent<Ressources>()->GetNombre() << std::endl;
 
 		if (pauseOn == false)
 		{

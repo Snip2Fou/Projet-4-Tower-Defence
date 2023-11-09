@@ -10,6 +10,7 @@
 #include "Components/LifeBar.h"
 #include "Components/LifeBarRenderer.h"
 #include <cmath>
+#include "Components/Ressources.h"
 #include "Components/Tower.h"
 #include "Components/TowerType.h"
 #include "Components/Button.h"
@@ -47,13 +48,14 @@ Player::~Player()
 {
 	delete soundBuffer;
 	delete sound;
+	delete ressource1;
+	delete ressource2;
+	ressource1 = nullptr;
+	ressource2 = nullptr;
 	sound = nullptr;
 	soundBuffer = nullptr;
 }
 
-int Player::GetHp(){
-	return hp;
-}
 
 void Player::SetHp(int new_hp) 
 {
