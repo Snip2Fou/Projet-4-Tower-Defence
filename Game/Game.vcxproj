@@ -156,8 +156,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="eventPause.cpp" />
-    <ClCompile Include="eventPause.h" />
+    <ClCompile Include="src\eventPause.cpp" />
+    <ClCompile Include="include\eventPause.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\eventGame.cpp" />
     <ClCompile Include="src\eventMenu.cpp" />
