@@ -4,7 +4,7 @@ enum ObjectName
 {
 	PlayerName,
 	EnemyName,
-	WallName,
+	TowerName,
 	ButtonName,
 	ShapeName,
 };

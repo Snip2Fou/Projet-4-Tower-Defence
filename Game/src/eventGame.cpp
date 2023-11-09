@@ -72,7 +72,40 @@ bool EventFunctionsGame::eventCheckClickButton(sf::Vector2i mousePosition, sf::E
 	{
 		std::string response = eventClickButton(buttonCheck, mousePosition);
 		if (response == "Spot") {
-			actor->getComponent<Player>()->SetChoosenSpot(buttonCheck);
+			if (buttonCheck->getComponent<Button>()->is_selected) {
+				buttonCheck->getComponent<Button>()->is_selected = false;
+				actor->getComponent<Player>()->SetChoosenSpotToNullPtr();
+				response = "";
+			}
+			else {
+				if (actor->getComponent<Player>()->GetChoosenSpot() != nullptr) {
+					actor->getComponent<Player>()->GetChoosenSpot()->getComponent<Button>()->is_selected = false;
+					eventChangeColorButton(actor->getComponent<Player>()->GetChoosenSpot(), actor->getComponent<Player>()->GetChoosenSpot()->getComponent<Button>()->colorNothing);
+				}
+				buttonCheck->getComponent<Button>()->is_selected = true;
+				actor->getComponent<Player>()->SetChoosenSpot(buttonCheck);
+			}
+		}else if (response == "ButtonTower1" || response == "ButtonTower2" || response == "ButtonTower3") {
+			if (buttonCheck->getComponent<Button>()->is_selected) {
+				buttonCheck->getComponent<Button>()->is_selected = false;
+				actor->getComponent<Player>()->SetChoosenTowerToNullPtr();
+			}
+			else {
+				if (actor->getComponent<Player>()->GetChoosenTower() != nullptr) {
+					actor->getComponent<Player>()->GetChoosenTower()->getComponent<Button>()->is_selected = false;
+					eventChangeColorButton(actor->getComponent<Player>()->GetChoosenTower(), actor->getComponent<Player>()->GetChoosenTower()->getComponent<Button>()->colorNothing);
+				}
+				buttonCheck->getComponent<Button>()->is_selected = true;
+				actor->getComponent<Player>()->SetChoosenTower(buttonCheck);
+			}
+		}
+		else if(response != "") {
+			if (buttonCheck->getComponent<Button>()->is_selected) {
+				buttonCheck->getComponent<Button>()->is_selected = false;
+			}
+			else {
+				buttonCheck->getComponent<Button>()->is_selected = true;
+			}
 		}
 		returnWhat.push_back(response);
 	}
@@ -91,7 +124,12 @@ std::string EventFunctionsGame::eventClickButton(GameObject* buttonCheck, sf::Ve
 
 	if (eventCollisionMouseButton(buttonCheck, mousePosition) == true)
 	{
-		eventChangeColorButton(buttonCheck, buttonCheckButton->colorClick);
+		if (buttonCheck->getComponent<Button>()->is_selected) {
+			eventChangeColorButton(buttonCheck, buttonCheck->getComponent<Button>()->colorNothing);
+		}
+		else {
+			eventChangeColorButton(buttonCheck, buttonCheck->getComponent<Button>()->colorClick);
+		}
 		return buttonCheckButton->type;
 	}
 	return "";
@@ -241,7 +279,11 @@ bool EventFunctionsGame::loopEvent(GameObject* actor, float sizeActor, sf::Rende
 			*pauseOn = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition, "Pause");
 			bool buttonOpenBuildMenu = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition, "BuildMenu");
 			bool spotOpenBuildMenu = eventMousePressed(event, actor, window, HorizontalOrigin, VerticalOrigin, scene, deltaTimeMilliseconds, mousePosition, "Spot");
+			std::cout << spotOpenBuildMenu << std::endl;
 			if (*buildMenuvisible == false && (buttonOpenBuildMenu == true || spotOpenBuildMenu== true)) {
+				*buildMenuvisible = true;
+			}
+			else if (*buildMenuvisible == true && spotOpenBuildMenu == true) {
 				*buildMenuvisible = true;
 			}
 			else if (*buildMenuvisible == true && (buttonOpenBuildMenu == true || spotOpenBuildMenu == true)) {

@@ -53,11 +53,19 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 	GameObject* buttonBuildMenu = buttonClass.createButtonObj(&scene, "BuildMenu");
 	eventFunction.buttonList.push_back(buttonBuildMenu);
 
-	GameObject* buttonTower1 = buttonClass.createButtonObj(&scene, "ButtonTower1");
-	eventFunction.buttonList.push_back(buttonTower1);
 
 	BuildMenu build_menu;
+	GameObject* buttonTower1 = buttonClass.createButtonObj(&scene, "ButtonTower1");
+	eventFunction.buttonList.push_back(buttonTower1);
 	build_menu.SetButtonTower1(buttonTower1);
+
+	GameObject* buttonTower2 = buttonClass.createButtonObj(&scene, "ButtonTower2");
+	eventFunction.buttonList.push_back(buttonTower2);
+	build_menu.SetButtonTower2(buttonTower2);
+
+	GameObject* buttonTower3 = buttonClass.createButtonObj(&scene, "ButtonTower3");
+	eventFunction.buttonList.push_back(buttonTower3);
+	build_menu.SetButtonTower3(buttonTower3);
 
 	clock.restart();
 
@@ -101,8 +109,8 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 		// Dessiner le sprite
 		window->draw(sprite);
 
-		scene.Render(window);
 		build_menu.Render(window);
+		scene.Render(window);
 		window->display();
 	}
 	return 0;

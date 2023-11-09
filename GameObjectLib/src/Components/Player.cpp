@@ -10,6 +10,10 @@
 #include "Components/LifeBar.h"
 #include "Components/LifeBarRenderer.h"
 #include <cmath>
+#include "Components/Tower.h"
+#include "Components/TowerType.h"
+#include "Components/Button.h"
+#include "Components/ShapeRenderer.h"
 
 
 Player::Player()
@@ -78,6 +82,37 @@ void Player::StopSound()
 }
 
 void Player::Update(float deltaTimeMillisecondes, std::vector<GameObject*>* gameObjects) {
-
+	CheckBuildTower(gameObjects);
 };
 
+void Player::CheckBuildTower(std::vector<GameObject*>* gameObjects) {
+	if (choosen_spot != nullptr && choosen_tower != nullptr) {
+		std::cout << "rr" << std::endl;
+		auto gameObject = new GameObject();
+		gameObject->SetName(ObjectName::TowerName);
+		gameObject->SetPosition(choosen_spot->GetPosition());
+		gameObjects->push_back(gameObject);
+		
+		Tower* tower = gameObject->CreateComponent<Tower>();
+		if (choosen_tower->getComponent<Button>()->type == "ButtonTower1") {
+			tower->SetType(TowerType::ArcherType);
+		}else if (choosen_tower->getComponent<Button>()->type == "ButtonTower2") {
+			tower->SetType(TowerType::MageType);
+		}else if (choosen_tower->getComponent<Button>()->type == "ButtonTower3") {
+			tower->SetType(TowerType::BomberType);
+		}
+
+		ShapeRenderer* shape_renderer = gameObject->CreateComponent<ShapeRenderer>();
+		shape_renderer->SetSize(choosen_spot->getComponent<Button>()->Size);
+
+		towers.push_back(gameObject);
+		choosen_tower->getComponent<Button>()->is_selected = false;
+		choosen_tower->getComponent<Button>()->color = choosen_tower->getComponent<Button>()->colorNothing;
+		choosen_tower->getComponent<ShapeRenderer>()->SetColor(choosen_tower->getComponent<Button>()->color);
+		choosen_spot->getComponent<Button>()->is_selected = false;
+		choosen_spot->getComponent<Button>()->color = choosen_tower->getComponent<Button>()->colorNothing;
+		choosen_spot->getComponent<ShapeRenderer>()->SetColor(choosen_spot->getComponent<Button>()->color);
+		choosen_spot = nullptr;
+		choosen_tower = nullptr;
+	}
+}

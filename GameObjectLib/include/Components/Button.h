@@ -45,11 +45,13 @@ private:
 	sf::Color colorBuildMenuClick = sf::Color(93, 93, 93);
 	sf::Vector2f sizeBuildMenu = sf::Vector2f(25, 25);
 
-	Maths::Vector2<float> positionButtonTower1 = Maths::Vector2<float>(22.5, windowConfig.largeur + 22.5);
-	sf::Color colorButtonTower1 = sf::Color::Red;
-	sf::Color colorButtonTower1Hover = sf::Color::Blue;
-	sf::Color colorButtonTower1Click = sf::Color::Cyan;
-	sf::Vector2f sizeButtonTower1 = sf::Vector2f(25, 25);
+	Maths::Vector2<float> positionButtonTower1 = Maths::Vector2<float>(50, windowConfig.largeur + 50);
+	Maths::Vector2<float> positionButtonTower2 = Maths::Vector2<float>(150, windowConfig.largeur + 50);
+	Maths::Vector2<float> positionButtonTower3 = Maths::Vector2<float>(250, windowConfig.largeur + 50);
+	sf::Color colorButtonTower = sf::Color::Red;
+	sf::Color colorButtonTowerHover = sf::Color::Blue;
+	sf::Color colorButtonTowerClick = sf::Color::Cyan;
+	sf::Vector2f sizeButtonTower = sf::Vector2f(75, 75);
 
 
 public:
@@ -62,6 +64,8 @@ public:
 
 	sf::Vector2f Size = sf::Vector2f(longueur, hauteur);
 	Maths::Vector2<float> position = Maths::Vector2<float>(0, 0);
+
+	bool is_selected = false;
 
 	GameObject* createButtonObj(Scene* scene, std::string type);
 	void Update(float DeltaTimeMillisecondes, std::vector<GameObject*>* gameObject) override;

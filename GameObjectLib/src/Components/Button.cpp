@@ -36,7 +36,17 @@ GameObject* Button::createButtonObj(Scene* scene, std::string type)
 	}
 	else if (type == "ButtonTower1")
 	{
-		GameObject* button = scene->CreateButton(name, positionButtonTower1, colorButtonTower1, colorButtonTower1Hover, colorButtonTower1Click, sizeButtonTower1, type);
+		GameObject* button = scene->CreateButton(name, positionButtonTower1, colorButtonTower, colorButtonTowerHover, colorButtonTowerClick, sizeButtonTower, type);
+		return button;
+	}
+	else if (type == "ButtonTower2")
+	{
+		GameObject* button = scene->CreateButton(name, positionButtonTower2, colorButtonTower, colorButtonTowerHover, colorButtonTowerClick, sizeButtonTower, type);
+		return button;
+	}
+	else if (type == "ButtonTower3")
+	{
+		GameObject* button = scene->CreateButton(name, positionButtonTower3, colorButtonTower, colorButtonTowerHover, colorButtonTowerClick, sizeButtonTower, type);
 		return button;
 	}
 	else
