@@ -23,19 +23,8 @@ Player::Player()
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	sound = new sf::Sound;
-}
-
-Player::~Player()
-{
-	delete soundBuffer;
-	delete sound;
-	sound = nullptr;
-	soundBuffer = nullptr;
-}
-
-int Player::GetHp(){
 	std::string line;
-	std::string data = ""; 
+	std::string data = "";
 	int dataInt = 0;
 	std::ifstream myfile("Model.txt");
 	if (myfile.is_open()) {
@@ -51,7 +40,19 @@ int Player::GetHp(){
 	else {
 		std::cout << "Unable to open file" << std::endl;
 	}
-	return dataInt;
+	hp = dataInt;
+}
+
+Player::~Player()
+{
+	delete soundBuffer;
+	delete sound;
+	sound = nullptr;
+	soundBuffer = nullptr;
+}
+
+int Player::GetHp(){
+	return hp;
 }
 
 void Player::SetHp(int new_hp) 
