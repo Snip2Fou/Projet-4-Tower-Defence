@@ -106,7 +106,7 @@ void EnemySpawn::EnemySpawn2(Scene* scene)
 
 	ObjectName name = ObjectName::EnemyName;
 	int hp = 30;
-	int speed = 50;
+	int speed = 35;
 	int damage = 10;
 
 	GameObject* enemy = scene->CreateEnemy(name, spawn_pos, hp, speed, damage, "texture_enemy2");

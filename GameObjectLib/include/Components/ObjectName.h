@@ -7,4 +7,5 @@ enum ObjectName
 	TowerName,
 	ButtonName,
 	ShapeName,
+	BulletName,
 };

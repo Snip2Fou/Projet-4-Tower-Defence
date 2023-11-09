@@ -83,7 +83,7 @@ bool Enemy::isDead(std::vector<GameObject*>* gameObjects)
 	if (hp <= 0)
 	{
 
-	  GetOwner()->RemoveComponent(GetOwner()->getComponent<Enemy>());
+		GetOwner()->RemoveComponent(GetOwner()->getComponent<Enemy>());
 		GetOwner()->RemoveComponent(GetOwner()->getComponent<SpriteRenderer>());
 		GetOwner()->RemoveComponent(GetOwner()->getComponent<SquareCollider>());
 		for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it)
@@ -94,7 +94,7 @@ bool Enemy::isDead(std::vector<GameObject*>* gameObjects)
 				gameObjects->erase(it);
 				return true;
 			}
-	}
+		}
 	}
 	else
 	{
