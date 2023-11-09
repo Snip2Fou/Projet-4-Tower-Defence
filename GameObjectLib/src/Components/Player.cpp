@@ -19,8 +19,6 @@ Player::Player()
 		std::cout << "erreur de chargement du fichier" << std::endl;
 	}
 	sound = new sf::Sound;
-	ressource1 = new GameObject;
-	ressource2 = new GameObject;
 }
 
 Player::~Player()

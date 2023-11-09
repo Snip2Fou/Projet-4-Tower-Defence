@@ -71,7 +71,8 @@ int SceneGame::LoopGame(sf::RenderWindow* window, bool pause)
 
 		player->getComponent<Player>()->GetRessource1()->getComponent<Ressources>()->SetNombre(1 * deltaTimeMilliseconds / 15);
 		player->getComponent<Player>()->GetRessource2()->getComponent<Ressources>()->SetNombre(1 * deltaTimeMilliseconds / 17);
-		
+		std::cout << "ressource or: " << player->getComponent<Player>()->GetRessource1()->getComponent<Ressources>()->GetNombre() << std::endl;
+		std::cout << "ressource bois: " << player->getComponent<Player>()->GetRessource2()->getComponent<Ressources>()->GetNombre() << std::endl;
 
 		if (pauseOn == false)
 		{
