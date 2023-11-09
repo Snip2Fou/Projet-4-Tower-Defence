@@ -39,7 +39,6 @@ int Player::GetHp(){
 			size_t pos = line.find("Life");
 			if (pos != std::string::npos) {
 				std::string data = line.substr(pos + 5);
-				std::cout << "Data after Life: " << data << std::endl;
 				dataInt = stoi(data);
 			}
 		}

@@ -30,24 +30,48 @@ std::chrono::high_resolution_clock::time_point EnemySpawn::CheckIfIsTimeToEnemyS
 	auto duration = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - time_for_enemy_spawn);
 	double cooldown = 1.2;
 
-	if (duration.count() >= cooldown && nbEnnemiVague < vaguemaxEnnemi)
-	{
-		nbEnnemiVague++;
-		std::cout << nbEnnemiVague << std::endl;
-		std::cout << vaguemaxEnnemi << std::endl;
-		std::cout << nbVague << std::endl;
+	
 
-		EnemySpawn1(scene);
-		EnemySpawn2(scene);
-		BossSpawn(scene);
 
-		time_for_enemy_spawn = std::chrono::high_resolution_clock::now();
-	}
-	else if (nbEnnemiVague >= vaguemaxEnnemi)
+	std::random_device rd;  // Initialise le générateur de nombres aléatoires
+	std::mt19937 rng(rd()); // Utilise le générateur mersenne_twister_engine
+
+	// Génère un nombre aléatoire entre 1 et 100
+	int randomEnemySpawn = std::uniform_int_distribution<int>(1, 100)(rng);
+
+	if (nbVague != nbVagueMax)
 	{
-		nbEnnemiVague = 0;
-		vaguemaxEnnemi = vaguemaxEnnemi * 1.25;
-		nbVague++;
+		if (duration.count() >= cooldown && nbEnnemiVague < vaguemaxEnnemi)
+		{
+			if (randomEnemySpawn <= spawnRateEnnemi1)
+			{
+				EnemySpawn1(scene);
+				nbEnnemiVague++;
+			}
+			else if (randomEnemySpawn > spawnRateEnnemi1 && randomEnemySpawn <= spawnRateEnnemi1 + spawnRateEnnemi2)
+			{
+				EnemySpawn2(scene);
+				nbEnnemiVague++;
+			}
+			if (randomEnemySpawn > spawnRateEnnemi1 + spawnRateEnnemi2 && randomEnemySpawn <= spawnRateEnnemi1 + spawnRateEnnemi2 + spawnRateBoss)
+			{
+				BossSpawn(scene);
+				nbEnnemiVague++;
+			}
+
+			std::cout << "Ennemis : " << nbEnnemiVague << std::endl;
+			std::cout << "Max ennemis : " << vaguemaxEnnemi << std::endl;
+			std::cout << "Vagues : " << nbVague << std::endl;
+
+
+			time_for_enemy_spawn = std::chrono::high_resolution_clock::now();
+		}
+		else if (nbEnnemiVague >= vaguemaxEnnemi && duration.count() >= cooldownBTWwaves)
+		{
+			nbEnnemiVague = 0;
+			vaguemaxEnnemi = vaguemaxEnnemi * coeffMultiplicateurEnnemi;
+			nbVague++;
+		}
 	}
 
 	return time_for_enemy_spawn;
